@@ -363,3 +363,78 @@ footer p {
         justify-content: center;
     }
 }
+
+
+/* Consent banner and settings modal */
+#consent-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 16px 20px;
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    z-index: 9999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+    border-top: 3px solid #1d4ed8;
+}
+#consent-banner p { margin: 0; font-size: 0.95rem; flex: 1; min-width: 200px; }
+#consent-banner p i { color: #0ea5e9; margin-right: 8px; }
+#consent-banner .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+#consent-banner button, #settings-modal button { padding: 10px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
+#consent-banner .btn-accept, #settings-modal .btn-save { background: #1d4ed8; color: white; }
+#consent-banner .btn-accept:hover, #settings-modal .btn-save:hover { background: #1e40af; }
+#consent-banner .btn-deny { background: #334155; color: #e2e8f0; }
+#consent-banner .btn-deny:hover { background: #475569; }
+#consent-banner .btn-settings { background: transparent; color: #94a3b8; text-decoration: underline; }
+#consent-banner .btn-settings:hover { color: #e2e8f0; }
+#settings-modal { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); z-index: 10000; justify-content: center; align-items: center; }
+#settings-modal .modal-content { background: white; padding: 30px; border-radius: 16px; max-width: 400px; width: 90%; color: #0f172a; }
+#settings-modal h3 { margin-bottom: 15px; }
+#settings-modal .setting-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e2e8f0; align-items: center; }
+#settings-modal .setting-item:last-child { border-bottom: none; }
+#settings-modal button { width: 100%; margin-top: 6px; }
+#settings-modal .btn-close-modal { background: #e2e8f0; color: #334155; }
+#settings-modal .btn-close-modal:hover { background: #cbd5e1; }
+input[type="checkbox"] { width: 18px; height: 18px; accent-color: #1d4ed8; cursor: pointer; }
+.gtm-noscript-iframe { display: none; visibility: hidden; }
+.analytics-icon { color: #1d4ed8; }
+.advertising-icon { color: #f59e0b; }
+.personalization-icon { color: #10b981; }
+.no-results { grid-column: 1 / -1; text-align: center; padding: 40px 0; color: #64748b; }
+.admin-form label { flex: 0 0 auto; font-weight: 600; }
+@media (max-width: 600px) {
+    #consent-banner { flex-direction: column; text-align: center; }
+    #consent-banner .btn-group { justify-content: center; }
+}
+
+/* Call Button */
+.call-btn {
+    display: inline-block;
+    background: #1d4ed8;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    box-shadow: 0 4px 14px rgba(29, 78, 216, 0.35);
+}
+.call-btn:hover {
+    background: #1e40af;
+    transform: scale(1.03);
+}
+@media (max-width: 600px) {
+    .call-btn {
+        padding: 12px 22px;
+        font-size: 1rem;
+        width: 100%;
+        justify-content: center;
+    }
+}

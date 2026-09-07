@@ -64,14 +64,13 @@ function render() {
     grid.innerHTML = '';
 
     if (filtered.length === 0) {
-        grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px 0; color:#64748b;">Ma jirto goob ku habboona. Boga wax ka bedel ama raadi wax kale.</p>';
+        grid.innerHTML = '<p class=\"no-results\">Ma jirto goob ku habboona. Boga wax ka bedel ama raadi wax kale.</p>';
         return;
     }
 
     filtered.forEach((loc, index) => {
         const card = document.createElement('div');
         card.className = 'card';
-        card.style.animationDelay = `${index * 0.03}s`;
 
         const tagClass = loc.type.toLowerCase() === 'supermarket' ? 'market' :
                          loc.type.toLowerCase() === 'killinik' ? 'clinic' :
