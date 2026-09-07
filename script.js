@@ -24,9 +24,6 @@ let locations = [
     { name: "City Herbal Store", address: "City Center, Keysa Bausharo, agagaarka waddada weyn", type: "Herbal" }
 ];
 
-// ============================================================
-// SAVE & LOAD
-// ============================================================
 function saveLocations() {
     localStorage.setItem('lubaanLocations', JSON.stringify(locations));
 }
@@ -37,9 +34,6 @@ function loadLocations() {
 }
 loadLocations();
 
-// ============================================================
-// RENDER
-// ============================================================
 function render() {
     const searchLower = document.getElementById('searchInput').value.toLowerCase().trim();
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -64,13 +58,14 @@ function render() {
     grid.innerHTML = '';
 
     if (filtered.length === 0) {
-        grid.innerHTML = '<p class=\"no-results\">Ma jirto goob ku habboona. Boga wax ka bedel ama raadi wax kale.</p>';
+        grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px 0; color:#64748b;">Ma jirto goob ku habboona. Boga wax ka bedel ama raadi wax kale.</p>';
         return;
     }
 
     filtered.forEach((loc, index) => {
         const card = document.createElement('div');
         card.className = 'card';
+        card.style.animationDelay = `${index * 0.03}s`;
 
         const tagClass = loc.type.toLowerCase() === 'supermarket' ? 'market' :
                          loc.type.toLowerCase() === 'killinik' ? 'clinic' :
@@ -92,9 +87,6 @@ function render() {
     });
 }
 
-// ============================================================
-// SEARCH & FILTER
-// ============================================================
 function searchLocations() {
     const val = document.getElementById('searchInput').value;
     document.getElementById('clearBtn').classList.toggle('visible', val.length > 0);
@@ -116,9 +108,6 @@ function filterLocations(type) {
     render();
 }
 
-// ============================================================
-// ADD & DELETE LOCATION
-// ============================================================
 function addLocation() {
     const nameInput = document.getElementById('newName');
     const addressInput = document.getElementById('newAddress');
@@ -165,9 +154,6 @@ function deleteLocation(index) {
     }
 }
 
-// ============================================================
-// VISITOR COUNTER
-// ============================================================
 function updateVisitorCounter() {
     let count = localStorage.getItem('lubaanVisitors');
     if (count === null) count = 1;
@@ -188,9 +174,6 @@ if (lastVisit !== today) {
     localStorage.setItem('lubaanLastVisit', today);
 }
 
-// ============================================================
-// VISITOR IP & LOCATION
-// ============================================================
 function getVisitorLocation() {
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
@@ -217,9 +200,6 @@ function getVisitorLocation() {
         });
 }
 
-// ============================================================
-// INIT
-// ============================================================
 document.addEventListener('DOMContentLoaded', function() {
     updateVisitorCounter();
     getVisitorLocation();
