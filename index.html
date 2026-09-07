@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lubaan Products - Hargeisa</title>
+    <meta name="description" content="Hel Lubaanta Dawada Ilkaha iyo Herbalka ee Hargeisa. Ka iibso Jumlada (36/72 pcs) ama raadi goobaha kuu dhow. 20+ goobood oo Hargeisa ah.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <h1><i class="fas fa-tooth"></i> Lubaan Products</h1>
+            <p>Hel Lubaanta Dawada Ilkaha &amp; Herbalka ee Jumlada &amp; Goobaha Lagu Iibiyo Hargeisa</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Qeybta WhatsApp Jumlada (Call to Action) -->
+        <section class="wholesale-section">
+            <h2>Miyaad tahay Ganacsi Rabo Jumlada?</h2>
+            <p>Half Kartoon (36 Pcs) ama Kartoon Buuxa (72 Pcs) oo qiimo dhimis leh.</p>
+            <a href="https://wa.me/252634008040?text=Waxaan%20doonayaa%20inaan%20iibsado%20Lubaanta%20Dawada%20Ilkaha%20(%20Half%20Kartoon%20=%2036%20pcs%20ama%20Kartoon%20buuxa%20=%2072%20pcs%20)" 
+               class="whatsapp-btn" target="_blank">
+                <i class="fab fa-whatsapp"></i> Nagala Soo Xiriir WhatsApp
+            </a>
+        </section>
+
+        <!-- Qeybta Raadinta (Search Box) -->
+        <section class="search-section">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Raadi magaca goobta, ciwaanka, ama nooca..." onkeyup="searchLocations()">
+                <button id="clearBtn" class="clear-btn" onclick="clearSearch()"><i class="fas fa-times-circle"></i></button>
+            </div>
+            <div class="filter-tags">
+                <button class="filter-btn active" data-filter="all" onclick="filterLocations('all')">Dhammaan</button>
+                <button class="filter-btn" data-filter="Supermarket" onclick="filterLocations('Supermarket')"><i class="fas fa-store"></i> Supermarket</button>
+                <button class="filter-btn" data-filter="Kilinik" onclick="filterLocations('Kilinik')"><i class="fas fa-clinic-medical"></i> Kilinik</button>
+                <button class="filter-btn" data-filter="Pharmacy" onclick="filterLocations('Pharmacy')"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</button>
+                <button class="filter-btn" data-filter="Herbal" onclick="filterLocations('Herbal')"><i class="fas fa-leaf"></i> Herbal</button>
+            </div>
+            <p id="resultsCount" class="results-count">20 goobood oo la helay</p>
+        </section>
+
+        <!-- Qeybta Maamulka Goobaha (Add Location) -->
+        <section class="admin-section">
+            <h3><i class="fas fa-plus-circle"></i> Ku Dar Goob Cusub</h3>
+            <div class="admin-form">
+                <input type="text" id="newName" placeholder="Magaca Goobta (e.g. Jabamila Herbal)">
+                <input type="text" id="newAddress" placeholder="Ciwaanka (e.g. Suuqa Wahen, City Center)">
+                <select id="newType">
+                    <option value="Supermarket">Supermarket</option>
+                    <option value="Kilinik">Kilinik</option>
+                    <option value="Pharmacy">Pharmacy</option>
+                    <option value="Herbal">Herbal</option>
+                </select>
+                <button onclick="addLocation()" class="add-btn"><i class="fas fa-save"></i> Ku Dar</button>
+            </div>
+            <p id="adminMessage" class="admin-message"></p>
+        </section>
+
+        <!-- Qeybta Cards-ka (Dhammaan Goobaha) -->
+        <section class="grid" id="locationGrid">
+            <!-- Cards waxaa soo gelinaya JavaScript -->
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Lubaan Products. Dhammaan xuquuqda way xumaantahay.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

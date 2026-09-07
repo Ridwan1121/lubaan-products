@@ -1,0 +1,12 @@
+﻿# Windows
+Thumbs.db
+Desktop.ini
+# macOS
+.DS_Store
+# VS Code
+.vscode/
+*.code-workspace
+# Temp
+*.tmp
+*.temp
+*.log

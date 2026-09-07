@@ -1,0 +1,357 @@
+﻿/* Reset & base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    color: #0f172a;
+    line-height: 1.6;
+}
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, #0b3b8a, #1d4ed8);
+    color: white;
+    padding: 1.8rem 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+header h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+}
+header h1 i {
+    margin-right: 8px;
+}
+header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Wholesale section (WhatsApp CTA) */
+.wholesale-section {
+    background: white;
+    border: 2px dashed #1d4ed8;
+    padding: 25px;
+    border-radius: 16px;
+    text-align: center;
+    margin: 30px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.wholesale-section h2 {
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+.wholesale-section p {
+    color: #334155;
+    margin-bottom: 14px;
+}
+.whatsapp-btn {
+    display: inline-block;
+    background-color: #25D366;
+    color: white;
+    padding: 14px 32px;
+    border-radius: 60px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+.whatsapp-btn i {
+    margin-right: 10px;
+    font-size: 1.3rem;
+}
+.whatsapp-btn:hover {
+    transform: scale(1.03);
+    background: #20b85f;
+}
+
+/* Search section */
+.search-section {
+    margin: 20px 0 30px;
+    text-align: center;
+}
+.search-wrapper {
+    position: relative;
+    max-width: 550px;
+    margin: 0 auto 10px;
+}
+.search-icon {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 1.1rem;
+}
+#searchInput {
+    width: 100%;
+    padding: 14px 50px 14px 48px;
+    border: 2px solid #e2e8f0;
+    border-radius: 60px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+    background: white;
+}
+#searchInput:focus {
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
+}
+.clear-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: none;
+    padding: 4px;
+}
+.clear-btn.visible {
+    display: block;
+}
+.filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 12px 0 6px;
+}
+.filter-btn {
+    background: white;
+    border: 2px solid #e2e8f0;
+    padding: 8px 20px;
+    border-radius: 40px;
+    font-weight: 600;
+    color: #334155;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.filter-btn i {
+    font-size: 0.9rem;
+}
+.filter-btn.active {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: white;
+}
+.filter-btn:hover:not(.active) {
+    border-color: #94a3b8;
+    background: #f1f5f9;
+}
+.results-count {
+    margin-top: 8px;
+    color: #475569;
+    font-size: 0.95rem;
+}
+
+/* Admin Section - Maamulka Goobaha */
+.admin-section {
+    background: white;
+    padding: 20px 25px;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    margin: 20px 0 30px;
+    border: 2px solid #e2e8f0;
+}
+.admin-section h3 {
+    color: #0f172a;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+.admin-section h3 i {
+    color: #1d4ed8;
+    margin-right: 8px;
+}
+.admin-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+.admin-form input,
+.admin-form select {
+    padding: 10px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    flex: 1 1 180px;
+    outline: none;
+    transition: 0.3s;
+    font-family: inherit;
+}
+.admin-form input:focus,
+.admin-form select:focus {
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.12);
+}
+.add-btn {
+    background: #1d4ed8;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+.add-btn:hover {
+    background: #1e40af;
+    transform: scale(1.02);
+}
+.admin-message {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #475569;
+}
+.admin-message.success {
+    color: #065f46;
+    background: #d1fae5;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+.admin-message.error {
+    color: #991b1b;
+    background: #fee2e2;
+    padding: 8px 14px;
+    border-radius: 8px;
+}
+
+/* Cards grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    margin: 30px 0 40px;
+}
+.card {
+    background: white;
+    padding: 20px 22px;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    border-left: 6px solid #1d4ed8;
+    transition: 0.25s ease;
+    position: relative;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.07);
+}
+.card h3 {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+    color: #0f172a;
+}
+.card .address {
+    color: #475569;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+.card .address i {
+    color: #94a3b8;
+    margin-right: 6px;
+    width: 16px;
+}
+.tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+}
+.tag.clinic {
+    background: #dbeafe;
+    color: #1e40af;
+}
+.tag.market {
+    background: #d1fae5;
+    color: #065f46;
+}
+.tag.pharmacy {
+    background: #fef3c7;
+    color: #92400e;
+}
+.tag.herbal {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+.card-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+}
+.card-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 4px 12px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+.delete-btn {
+    color: #991b1b;
+    background: #fee2e2;
+}
+.delete-btn:hover {
+    background: #fecaca;
+}
+.edit-btn {
+    color: #1d4ed8;
+    background: #dbeafe;
+}
+.edit-btn:hover {
+    background: #bfdbfe;
+}
+
+/* Footer */
+footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 20px;
+}
+footer p {
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    header h1 { font-size: 1.8rem; }
+    .wholesale-section { padding: 18px; }
+    .whatsapp-btn { padding: 12px 22px; font-size: 1rem; }
+    .filter-btn { padding: 6px 14px; font-size: 0.8rem; }
+    .grid { grid-template-columns: 1fr; }
+    .admin-form input,
+    .admin-form select {
+        flex: 1 1 100%;
+    }
+    .add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
