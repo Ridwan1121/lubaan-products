@@ -1,8 +1,7 @@
 ﻿// ============================================================
-// DATA: Goobaha (20 goobood - 15 Lubaan + 5 Herbal)
+// DATA: 20 goobood (15 Lubaan + 5 Herbal)
 // ============================================================
 let locations = [
-    // Lubaanta Dawada Ilkaha (15)
     { name: "Paris Dental Clinic", address: "Waddada Gargar, kasoo horjeedka ex Nasiiba", type: "Kilinik" },
     { name: "Geesh Supermarket", address: "Xaafada Masalaha", type: "Supermarket" },
     { name: "Ciir Supermarket", address: "Xaafada Masalaha", type: "Supermarket" },
@@ -18,7 +17,6 @@ let locations = [
     { name: "Liiban Supermarket", address: "New Hargeisa", type: "Supermarket" },
     { name: "Salama Supermarket", address: "New Hargeisa, agagaarka xeero Traffic-ka", type: "Supermarket" },
     { name: "Faraska Supermarket", address: "New Hargeisa", type: "Supermarket" },
-    // Herbalka (5)
     { name: "Jabamila Herbal", address: "Suuqa Wahen, Asla Miles, City Center", type: "Herbal" },
     { name: "Dahabshiil Herbal Center", address: "Waddada weyn ee City Center, agagaarka Keysa Bausharo", type: "Herbal" },
     { name: "Hargeisa Herbal Pharmacy", address: "Ka timaada Saldhiga Dhexe, Mustjamaca Wayn", type: "Herbal" },
@@ -66,7 +64,7 @@ function render() {
     grid.innerHTML = '';
 
     if (filtered.length === 0) {
-        grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; padding:40px 0; color:#64748b;">Ma jirto goob ku habboona. Boga wax ka bedel ama raadi wax kale.</p>`;
+        grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px 0; color:#64748b;">Ma jirto goob ku habboona. Boga wax ka bedel ama raadi wax kale.</p>';
         return;
     }
 

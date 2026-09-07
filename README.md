@@ -18,6 +18,7 @@
 - 📊 **Google Tag Manager** - Analytics & Tracking
 - 🔒 **Consent Mode v2** - U hogaansan shuruudaha Google
 - 📱 **Responsive** - Waxay shaqeysaa dhammaan qalabka
+- 🦷 **Favicon** - Calaamad gaar ah
 
 ### 🛠️ Tiknolojiyadda
 - HTML5
@@ -47,6 +48,7 @@
 - 📊 **Google Tag Manager** - Analytics & Tracking
 - 🔒 **Consent Mode v2** - Google compliant
 - 📱 **Responsive** - Works on all devices
+- 🦷 **Favicon** - Custom icon
 
 ### 🛠️ Technologies
 - HTML5
