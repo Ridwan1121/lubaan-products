@@ -1,5 +1,4 @@
-﻿/* Reset & base */
-* {
+﻿* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -36,7 +35,7 @@ header p {
     opacity: 0.9;
 }
 
-/* Wholesale section (WhatsApp CTA) */
+/* Wholesale section */
 .wholesale-section {
     background: white;
     border: 2px dashed #1d4ed8;
@@ -75,7 +74,7 @@ header p {
     background: #20b85f;
 }
 
-/* Search section */
+/* Search */
 .search-section {
     margin: 20px 0 30px;
     text-align: center;
@@ -162,7 +161,7 @@ header p {
     font-size: 0.95rem;
 }
 
-/* Admin Section - Maamulka Goobaha */
+/* Admin */
 .admin-section {
     background: white;
     padding: 20px 25px;
@@ -238,7 +237,7 @@ header p {
     border-radius: 8px;
 }
 
-/* Cards grid */
+/* Cards */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -252,7 +251,6 @@ header p {
     box-shadow: 0 4px 12px rgba(0,0,0,0.04);
     border-left: 6px solid #1d4ed8;
     transition: 0.25s ease;
-    position: relative;
 }
 .card:hover {
     transform: translateY(-4px);
@@ -303,28 +301,17 @@ header p {
     display: flex;
     gap: 8px;
 }
-.card-actions button {
-    background: none;
+.delete-btn {
+    background: #fee2e2;
+    color: #991b1b;
     border: none;
-    cursor: pointer;
-    font-size: 0.85rem;
     padding: 4px 12px;
     border-radius: 6px;
-    transition: 0.2s;
-}
-.delete-btn {
-    color: #991b1b;
-    background: #fee2e2;
+    cursor: pointer;
+    font-size: 0.85rem;
 }
 .delete-btn:hover {
     background: #fecaca;
-}
-.edit-btn {
-    color: #1d4ed8;
-    background: #dbeafe;
-}
-.edit-btn:hover {
-    background: #bfdbfe;
 }
 
 /* Footer */
@@ -337,6 +324,27 @@ footer {
 }
 footer p {
     font-size: 0.9rem;
+}
+
+/* Visitor Stats */
+.visitor-stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px 0;
+    font-size: 0.85rem;
+    color: #94a3b8;
+    border-top: 1px solid #1e293b;
+    margin-bottom: 10px;
+}
+.visitor-stats span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.visitor-stats i {
+    color: #0ea5e9;
 }
 
 /* Responsive */

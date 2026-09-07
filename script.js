@@ -1,10 +1,8 @@
 ﻿// ============================================================
-// JavaScript - Search + Filter + Admin (Add/Delete Locations)
+// DATA: Goobaha (20 goobood - 15 Lubaan + 5 Herbal)
 // ============================================================
-
-// ===== DATA: Dhamaan Goobaha (15 goobood + 5 Herbal) =====
 let locations = [
-    // Goobaha Lubaan (15 goobood)
+    // Lubaanta Dawada Ilkaha (15)
     { name: "Paris Dental Clinic", address: "Waddada Gargar, kasoo horjeedka ex Nasiiba", type: "Kilinik" },
     { name: "Geesh Supermarket", address: "Xaafada Masalaha", type: "Supermarket" },
     { name: "Ciir Supermarket", address: "Xaafada Masalaha", type: "Supermarket" },
@@ -20,8 +18,7 @@ let locations = [
     { name: "Liiban Supermarket", address: "New Hargeisa", type: "Supermarket" },
     { name: "Salama Supermarket", address: "New Hargeisa, agagaarka xeero Traffic-ka", type: "Supermarket" },
     { name: "Faraska Supermarket", address: "New Hargeisa", type: "Supermarket" },
-
-    // Goobaha Herbalka (5 goobood)
+    // Herbalka (5)
     { name: "Jabamila Herbal", address: "Suuqa Wahen, Asla Miles, City Center", type: "Herbal" },
     { name: "Dahabshiil Herbal Center", address: "Waddada weyn ee City Center, agagaarka Keysa Bausharo", type: "Herbal" },
     { name: "Hargeisa Herbal Pharmacy", address: "Ka timaada Saldhiga Dhexe, Mustjamaca Wayn", type: "Herbal" },
@@ -29,34 +26,30 @@ let locations = [
     { name: "City Herbal Store", address: "City Center, Keysa Bausharo, agagaarka waddada weyn", type: "Herbal" }
 ];
 
-// ===== DOM REFS =====
-const grid = document.getElementById('locationGrid');
-const searchInput = document.getElementById('searchInput');
-const clearBtn = document.getElementById('clearBtn');
-const resultsCount = document.getElementById('resultsCount');
-const filterBtns = document.querySelectorAll('.filter-btn');
-
-let currentFilter = 'all';
-let currentSearch = '';
-
-// ===== SAVE & LOAD from localStorage =====
+// ============================================================
+// SAVE & LOAD
+// ============================================================
 function saveLocations() {
     localStorage.setItem('lubaanLocations', JSON.stringify(locations));
 }
 
 function loadLocations() {
     const saved = localStorage.getItem('lubaanLocations');
-    if (saved) {
-        locations = JSON.parse(saved);
-    }
+    if (saved) locations = JSON.parse(saved);
 }
-
-// Load data
 loadLocations();
 
-// ===== RENDER FUNCTION =====
+// ============================================================
+// RENDER
+// ============================================================
 function render() {
-    const searchLower = currentSearch.toLowerCase().trim();
+    const searchLower = document.getElementById('searchInput').value.toLowerCase().trim();
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let currentFilter = 'all';
+    filterBtns.forEach(btn => {
+        if (btn.classList.contains('active')) currentFilter = btn.dataset.filter;
+    });
+
     const filtered = locations.filter(loc => {
         if (currentFilter !== 'all' && loc.type !== currentFilter) return false;
         if (searchLower) {
@@ -68,7 +61,8 @@ function render() {
         return true;
     });
 
-    resultsCount.textContent = `${filtered.length} goobood oo la helay`;
+    document.getElementById('resultsCount').textContent = `${filtered.length} goobood oo la helay`;
+    const grid = document.getElementById('locationGrid');
     grid.innerHTML = '';
 
     if (filtered.length === 0) {
@@ -85,17 +79,12 @@ function render() {
                          loc.type.toLowerCase() === 'killinik' ? 'clinic' :
                          loc.type.toLowerCase() === 'pharmacy' ? 'pharmacy' : 'herbal';
 
-        // Find index in original array for delete
         const originalIndex = locations.indexOf(loc);
 
         card.innerHTML = `
-            <div class="card-header">
-                <span class="card-title">${loc.name}</span>
-                <span class="tag ${tagClass}">${loc.type}</span>
-            </div>
-            <div class="card-address">
-                <i class="fas fa-map-pin"></i> ${loc.address}
-            </div>
+            <h3>${loc.name}</h3>
+            <p class="address"><i class="fas fa-map-pin"></i> ${loc.address}</p>
+            <span class="tag ${tagClass}">${loc.type}</span>
             <div class="card-actions">
                 <button class="delete-btn" onclick="deleteLocation(${originalIndex})">
                     <i class="fas fa-trash-alt"></i> Tirtir
@@ -106,34 +95,33 @@ function render() {
     });
 }
 
-// ===== SEARCH & CLEAR =====
+// ============================================================
+// SEARCH & FILTER
+// ============================================================
 function searchLocations() {
-    currentSearch = searchInput.value;
-    clearBtn.classList.toggle('visible', currentSearch.length > 0);
+    const val = document.getElementById('searchInput').value;
+    document.getElementById('clearBtn').classList.toggle('visible', val.length > 0);
     render();
 }
 
 function clearSearch() {
-    searchInput.value = '';
-    currentSearch = '';
-    clearBtn.classList.remove('visible');
+    document.getElementById('searchInput').value = '';
+    document.getElementById('clearBtn').classList.remove('visible');
     render();
-    searchInput.focus();
+    document.getElementById('searchInput').focus();
 }
 
-// ===== FILTER =====
 function filterLocations(type) {
-    currentFilter = type;
-    filterBtns.forEach(btn => {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
-        if (btn.getAttribute('data-filter') === type) {
-            btn.classList.add('active');
-        }
+        if (btn.dataset.filter === type) btn.classList.add('active');
     });
     render();
 }
 
-// ===== ADD LOCATION =====
+// ============================================================
+// ADD & DELETE LOCATION
+// ============================================================
 function addLocation() {
     const nameInput = document.getElementById('newName');
     const addressInput = document.getElementById('newAddress');
@@ -150,9 +138,7 @@ function addLocation() {
         return;
     }
 
-    // Check duplicate
-    const exists = locations.some(loc => loc.name.toLowerCase() === name.toLowerCase());
-    if (exists) {
+    if (locations.some(loc => loc.name.toLowerCase() === name.toLowerCase())) {
         msg.textContent = '⚠️ Goobtan magaceeda ayaa hore u jirtay!';
         msg.className = 'admin-message error';
         return;
@@ -166,14 +152,9 @@ function addLocation() {
     addressInput.value = '';
     msg.textContent = `✅ "${name}" waa la ku daray!`;
     msg.className = 'admin-message success';
-
-    setTimeout(() => {
-        msg.textContent = '';
-        msg.className = 'admin-message';
-    }, 3000);
+    setTimeout(() => { msg.textContent = ''; msg.className = 'admin-message'; }, 3000);
 }
 
-// ===== DELETE LOCATION =====
 function deleteLocation(index) {
     const name = locations[index].name;
     if (confirm(`Ma hubtaa inaad tirtirto "${name}"?`)) {
@@ -183,16 +164,69 @@ function deleteLocation(index) {
         const msg = document.getElementById('adminMessage');
         msg.textContent = `✅ "${name}" waa la tirtiray!`;
         msg.className = 'admin-message success';
-        setTimeout(() => {
-            msg.textContent = '';
-            msg.className = 'admin-message';
-        }, 2000);
+        setTimeout(() => { msg.textContent = ''; msg.className = 'admin-message'; }, 2000);
     }
 }
 
-// ===== EVENT LISTENERS =====
-searchInput.addEventListener('input', searchLocations);
-clearBtn.addEventListener('click', clearSearch);
+// ============================================================
+// VISITOR COUNTER
+// ============================================================
+function updateVisitorCounter() {
+    let count = localStorage.getItem('lubaanVisitors');
+    if (count === null) count = 1;
+    else count = parseInt(count) + 1;
+    localStorage.setItem('lubaanVisitors', count);
+    const counter = document.getElementById('visitorCounter');
+    if (counter) counter.textContent = `👤 Booqdayaasha: ${count}`;
+    return count;
+}
 
-// ===== INITIAL RENDER =====
-render();
+const today = new Date().toDateString();
+const lastVisit = localStorage.getItem('lubaanLastVisit');
+if (lastVisit !== today) {
+    let total = localStorage.getItem('lubaanTotalVisitors');
+    if (total === null) total = 0;
+    total = parseInt(total) + 1;
+    localStorage.setItem('lubaanTotalVisitors', total);
+    localStorage.setItem('lubaanLastVisit', today);
+}
+
+// ============================================================
+// VISITOR IP & LOCATION
+// ============================================================
+function getVisitorLocation() {
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            const info = {
+                ip: data.ip || 'Unknown',
+                city: data.city || 'Hargeisa',
+                country: data.country_name || 'Somaliland'
+            };
+            localStorage.setItem('lubaanVisitorIP', info.ip);
+            localStorage.setItem('lubaanVisitorCity', info.city);
+            localStorage.setItem('lubaanVisitorCountry', info.country);
+            const el = document.getElementById('visitorLocation');
+            if (el) el.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${info.city}, ${info.country}`;
+        })
+        .catch(() => {
+            fetch('https://ipinfo.io/json')
+                .then(res => res.json())
+                .then(data => {
+                    const el = document.getElementById('visitorLocation');
+                    if (el) el.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${data.city || 'Hargeisa'}, ${data.country || 'Somaliland'}`;
+                })
+                .catch(() => {});
+        });
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', function() {
+    updateVisitorCounter();
+    getVisitorLocation();
+    render();
+    document.getElementById('searchInput').addEventListener('input', searchLocations);
+    document.getElementById('clearBtn').addEventListener('click', clearSearch);
+});

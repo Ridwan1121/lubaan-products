@@ -5,14 +5,236 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lubaan Products - Hargeisa</title>
     <meta name="description" content="Hel Lubaanta Dawada Ilkaha iyo Herbalka ee Hargeisa. Ka iibso Jumlada (36/72 pcs) ama raadi goobaha kuu dhow. 20+ goobood oo Hargeisa ah.">
+
+    <!-- ========================================== -->
+    <!-- GOOGLE TAG MANAGER + CONSENT MODE v2      -->
+    <!-- ========================================== -->
+    <script>
+        // Consent Mode v2 - Default 'denied'
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        
+        // Set default consent to 'denied'
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        
+        // Configure Google Ads (haddii aad isticmaasho)
+        gtag('set', 'ads_data_redaction', true);
+        gtag('set', 'url_passthrough', true);
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MF3RVFLT');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Consent Banner Styles -->
+    <style>
+        #consent-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 16px 20px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            border-top: 3px solid #1d4ed8;
+        }
+        #consent-banner p {
+            margin: 0;
+            font-size: 0.95rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        #consent-banner p i {
+            color: #0ea5e9;
+            margin-right: 8px;
+        }
+        #consent-banner .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        #consent-banner button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        #consent-banner .btn-accept {
+            background: #1d4ed8;
+            color: white;
+        }
+        #consent-banner .btn-accept:hover {
+            background: #1e40af;
+            transform: scale(1.02);
+        }
+        #consent-banner .btn-deny {
+            background: #334155;
+            color: #e2e8f0;
+        }
+        #consent-banner .btn-deny:hover {
+            background: #475569;
+        }
+        #consent-banner .btn-settings {
+            background: transparent;
+            color: #94a3b8;
+            text-decoration: underline;
+        }
+        #consent-banner .btn-settings:hover {
+            color: #e2e8f0;
+        }
+        @media (max-width: 600px) {
+            #consent-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            #consent-banner .btn-group {
+                justify-content: center;
+            }
+        }
+        /* Settings Modal */
+        #settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        #settings-modal .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+            color: #0f172a;
+        }
+        #settings-modal h3 {
+            margin-bottom: 15px;
+        }
+        #settings-modal .setting-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            align-items: center;
+        }
+        #settings-modal .setting-item:last-child {
+            border-bottom: none;
+        }
+        #settings-modal button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 6px;
+        }
+        #settings-modal .btn-save {
+            background: #1d4ed8;
+            color: white;
+        }
+        #settings-modal .btn-save:hover {
+            background: #1e40af;
+        }
+        #settings-modal .btn-close-modal {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        #settings-modal .btn-close-modal:hover {
+            background: #cbd5e1;
+        }
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #1d4ed8;
+            cursor: pointer;
+        }
+    </style>
+
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>">
 </head>
 <body>
 
+    <!-- ========================================== -->
+    <!-- GOOGLE TAG MANAGER (NOSCRIPT)              -->
+    <!-- ========================================== -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF3RVFLT"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <!-- ========================================== -->
+    <!-- CONSENT BANNER                             -->
+    <!-- ========================================== -->
+    <div id="consent-banner">
+        <p>
+            <i class="fas fa-shield-alt"></i>
+            Waxaan isticmaalnaa cookies si aan u wanaajino khibradaada. 
+            Waanu xisaabtannaa go'aankaaga.
+        </p>
+        <div class="btn-group">
+            <button class="btn-settings" onclick="showSettings()"><i class="fas fa-cog"></i> Settings</button>
+            <button class="btn-deny" onclick="denyConsent()"><i class="fas fa-times"></i> Deny</button>
+            <button class="btn-accept" onclick="acceptConsent()"><i class="fas fa-check"></i> Accept All</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-sliders-h"></i> Cookie Settings</h3>
+            <p style="color:#64748b; font-size:0.9rem; margin-bottom:15px;">
+                Dooro noocyada cookies-ka aad ogolaanayso.
+            </p>
+            <div class="setting-item">
+                <span><i class="fas fa-chart-line" style="color:#1d4ed8;"></i> Analytics</span>
+                <input type="checkbox" id="consent-analytics" checked>
+            </div>
+            <div class="setting-item">
+                <span><i class="fas fa-ad" style="color:#f59e0b;"></i> Advertising</span>
+                <input type="checkbox" id="consent-advertising" checked>
+            </div>
+            <div class="setting-item">
+                <span><i class="fas fa-user" style="color:#10b981;"></i> Personalization</span>
+                <input type="checkbox" id="consent-personalization" checked>
+            </div>
+            <button class="btn-save" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+            <button class="btn-close-modal" onclick="closeSettings()">Close</button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- HEADER                                     -->
+    <!-- ========================================== -->
     <header>
         <div class="container header-container">
             <h1><i class="fas fa-tooth"></i> Lubaan Products</h1>
@@ -21,7 +243,7 @@
     </header>
 
     <main class="container">
-        <!-- Qeybta WhatsApp Jumlada (Call to Action) -->
+        <!-- WhatsApp Jumlada -->
         <section class="wholesale-section">
             <h2>Miyaad tahay Ganacsi Rabo Jumlada?</h2>
             <p>Half Kartoon (36 Pcs) ama Kartoon Buuxa (72 Pcs) oo qiimo dhimis leh.</p>
@@ -31,7 +253,7 @@
             </a>
         </section>
 
-        <!-- Qeybta Raadinta (Search Box) -->
+        <!-- Search -->
         <section class="search-section">
             <div class="search-wrapper">
                 <i class="fas fa-search search-icon"></i>
@@ -48,7 +270,7 @@
             <p id="resultsCount" class="results-count">20 goobood oo la helay</p>
         </section>
 
-        <!-- Qeybta Maamulka Goobaha (Add Location) -->
+        <!-- Admin Panel -->
         <section class="admin-section">
             <h3><i class="fas fa-plus-circle"></i> Ku Dar Goob Cusub</h3>
             <div class="admin-form">
@@ -65,17 +287,129 @@
             <p id="adminMessage" class="admin-message"></p>
         </section>
 
-        <!-- Qeybta Cards-ka (Dhammaan Goobaha) -->
-        <section class="grid" id="locationGrid">
-            <!-- Cards waxaa soo gelinaya JavaScript -->
-        </section>
+        <!-- Cards Grid -->
+        <section class="grid" id="locationGrid"></section>
     </main>
 
     <footer>
         <div class="container">
+            <div class="visitor-stats">
+                <span id="visitorCounter">👤 Booqdayaasha: 0</span>
+                <span id="visitorLocation"><i class="fas fa-map-marker-alt"></i> Hargeisa, Somaliland</span>
+            </div>
             <p>&copy; 2026 Lubaan Products. Dhammaan xuquuqda way xumaantahay.</p>
         </div>
     </footer>
+
+    <!-- ========================================== -->
+    <!-- CONSENT SCRIPT                             -->
+    <!-- ========================================== -->
+    <script>
+        // Check if consent was already given
+        const consentGiven = localStorage.getItem('consentGiven');
+        const consentSettings = JSON.parse(localStorage.getItem('consentSettings') || '{}');
+
+        function showBanner() {
+            document.getElementById('consent-banner').style.display = 'flex';
+        }
+
+        function hideBanner() {
+            document.getElementById('consent-banner').style.display = 'none';
+        }
+
+        function acceptConsent() {
+            // Update Google Consent via GTM
+            gtag('consent', 'update', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+            });
+            localStorage.setItem('consentGiven', 'true');
+            localStorage.setItem('consentSettings', JSON.stringify({
+                analytics: true,
+                advertising: true,
+                personalization: true
+            }));
+            hideBanner();
+            // Reload page to enable analytics
+            setTimeout(() => { location.reload(); }, 500);
+        }
+
+        function denyConsent() {
+            // Keep default 'denied'
+            gtag('consent', 'update', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+            });
+            localStorage.setItem('consentGiven', 'false');
+            localStorage.setItem('consentSettings', JSON.stringify({
+                analytics: false,
+                advertising: false,
+                personalization: false
+            }));
+            hideBanner();
+        }
+
+        function showSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.style.display = 'flex';
+            // Load saved settings
+            const settings = JSON.parse(localStorage.getItem('consentSettings') || '{}');
+            document.getElementById('consent-analytics').checked = settings.analytics !== false;
+            document.getElementById('consent-advertising').checked = settings.advertising !== false;
+            document.getElementById('consent-personalization').checked = settings.personalization !== false;
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').style.display = 'none';
+        }
+
+        function saveSettings() {
+            const analytics = document.getElementById('consent-analytics').checked;
+            const advertising = document.getElementById('consent-advertising').checked;
+            const personalization = document.getElementById('consent-personalization').checked;
+
+            // Update Google Consent via GTM
+            gtag('consent', 'update', {
+                'ad_storage': advertising ? 'granted' : 'denied',
+                'ad_user_data': advertising ? 'granted' : 'denied',
+                'ad_personalization': personalization ? 'granted' : 'denied',
+                'analytics_storage': analytics ? 'granted' : 'denied'
+            });
+
+            localStorage.setItem('consentGiven', 'true');
+            localStorage.setItem('consentSettings', JSON.stringify({
+                analytics: analytics,
+                advertising: advertising,
+                personalization: personalization
+            }));
+
+            closeSettings();
+            hideBanner();
+            
+            // Reload if analytics was enabled
+            if (analytics) {
+                setTimeout(() => { location.reload(); }, 500);
+            }
+        }
+
+        // Show banner if consent not given
+        if (!consentGiven) {
+            showBanner();
+        } else {
+            // Apply saved consent
+            const settings = JSON.parse(localStorage.getItem('consentSettings') || '{}');
+            gtag('consent', 'update', {
+                'ad_storage': settings.advertising ? 'granted' : 'denied',
+                'ad_user_data': settings.advertising ? 'granted' : 'denied',
+                'ad_personalization': settings.personalization ? 'granted' : 'denied',
+                'analytics_storage': settings.analytics ? 'granted' : 'denied'
+            });
+        }
+    </script>
 
     <script src="script.js"></script>
 </body>

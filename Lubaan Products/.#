@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lubaan Products | Lubaanta Dawada Ilkaha</title>
+
+    <!-- Font Awesome (Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ===== HEADER / NAVBAR ===== -->
+    <header class="navbar">
+        <div class="container nav-container">
+            <!-- Logo -->
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-tooth"></i></span>
+                <span class="logo-text">Lubaan <span>Products</span></span>
+            </div>
+
+            <!-- WhatsApp CTA Button -->
+            <a href="https://wa.me/252634008040?text=Waxaan%20doonayaa%20inaan%20iibsado%20Lubaanta%20Dawada%20Ilkaha%20(%20Half%20Kartoon%20=%2036%20pcs%20ama%20Kartoon%20buuxa%20=%2072%20pcs%20)."
+            target="_blank"
+            class="btn-whatsapp">
+            <i class="fab fa-whatsapp"></i>
+            <span>Iibka Jumlada</span>
+            <small>36 / 72 pcs</small>
+        </a>
+    </div>
+</header>
+
+<!-- ===== HERO / SEARCH SECTION ===== -->
+<section class="hero">
+    <div class="container">
+        <h1>Lubaanta Dawada Ilkaha</h1>
+        <p class="subtitle">
+            Hel goobta kuu dhow ee lagu iibiyo <strong>Lubaanta</strong> — Hargeisa
+        </p>
+
+        <!-- Search Box -->
+        <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input
+            type="text"
+            id="searchInput"
+            placeholder="Raadi magaca goobta, ciwaanka, ama nooca..."
+            autocomplete="off"
+            />
+            <button id="clearSearch" class="clear-btn" aria-label="Clear search">
+                <i class="fas fa-times-circle"></i>
+            </button>
+        </div>
+
+        <!-- Filter Tags / Quick filters -->
+        <div class="filter-tags">
+            <button class="filter-btn active" data-filter="all">Dhammaan</button>
+            <button class="filter-btn" data-filter="Supermarket">
+                <i class="fas fa-store"></i> Supermarket
+            </button>
+            <button class="filter-btn" data-filter="Kilinik">
+                <i class="fas fa-clinic-medical"></i> Kilinik
+            </button>
+            <button class="filter-btn" data-filter="Pharmacy">
+                <i class="fas fa-prescription-bottle-alt"></i> Pharmacy
+            </button>
+        </div>
+
+        <!-- Results count -->
+        <p class="results-count" id="resultsCount">15 goobood oo la helay</p>
+    </div>
+</section>
+
+<!-- ===== LOCATIONS GRID ===== -->
+<main class="locations-section">
+    <div class="container">
+        <div class="cards-grid" id="cardsGrid">
+            <!-- Cards will be injected by JavaScript -->
+        </div>
+    </div>
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="logo-icon"><i class="fas fa-tooth"></i></span>
+                <span class="logo-text">Lubaan <span>Products</span></span>
+                <p>Lubaanta Dawada Ilkaha — Tayada iyo kalsooni.</p>
+            </div>
+            <div class="footer-contact">
+                <h4>Xiriir</h4>
+                <a href="https://wa.me/252634008040" target="_blank">
+                    <i class="fab fa-whatsapp"></i> +252 63 400 8040
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Lubaan Products. Dhammaan xuquuqda way xumaantahay.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script src="script.js"></script>
+</body>
+</html>
