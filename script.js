@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============================================================
 // ADMIN PASSWORD PROTECTION
 // ============================================================
-const ADMIN_PASSWORD = "Lubaan2026";  // <-- Password-ka (Waxaad bedeli kartaa)
+const ADMIN_PASSWORD = "Akiid12345";  // <-- Password-ka (Waxaad bedeli kartaa)
 
 function checkAdminPassword() {
     const input = document.getElementById('adminPassword');
@@ -265,3 +265,96 @@ document.head.appendChild(styleSheet);
 
 // Bedel addLocation si ay u shaqeyso kadib login
 // (Waxaan isku daynaa inaan ilaalinno hawlaha hore)
+
+// ============================================================
+// ADMIN LOGIN (EMAIL + PASSWORD) + PERSISTENT STORAGE
+// ============================================================
+
+// Admin credentials
+const ADMIN_EMAIL = "akiidonly@gmail.com";
+const ADMIN_PASSWORD = "Akiid12345";
+
+// Function to check admin login
+function checkAdminLogin() {
+    const email = document.getElementById('adminEmail');
+    const password = document.getElementById('adminPassword');
+    const error = document.getElementById('adminError');
+    const lock = document.getElementById('adminLock');
+    const content = document.getElementById('adminContent');
+    
+    if (email.value === ADMIN_EMAIL && password.value === ADMIN_PASSWORD) {
+        lock.style.display = 'none';
+        content.style.display = 'block';
+        error.style.display = 'none';
+        // Kaydi xogta (session)
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        sessionStorage.setItem('adminEmail', email.value);
+    } else {
+        error.style.display = 'block';
+        password.value = '';
+        password.focus();
+        // Shake animation
+        password.style.animation = 'shake 0.4s ease';
+        setTimeout(() => { password.style.animation = ''; }, 500);
+    }
+}
+
+// Function to lock admin
+function lockAdmin() {
+    document.getElementById('adminLock').style.display = 'block';
+    document.getElementById('adminContent').style.display = 'none';
+    document.getElementById('adminEmail').value = '';
+    document.getElementById('adminPassword').value = '';
+    sessionStorage.removeItem('adminLoggedIn');
+    sessionStorage.removeItem('adminEmail');
+}
+
+// Check if admin is already logged in
+document.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        document.getElementById('adminLock').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+        // Pre-fill email
+        const email = sessionStorage.getItem('adminEmail');
+        if (email) {
+            document.getElementById('adminEmail').value = email;
+        }
+    }
+});
+
+// ============================================================
+// PERSISTENT STORAGE - Goobaha ku kaydso localStorage
+// ============================================================
+
+// Override saveLocations si ay u kaydiso localStorage
+function saveLocations() {
+    localStorage.setItem('lubaanLocations', JSON.stringify(locations));
+}
+
+// Load locations from localStorage
+function loadLocations() {
+    const saved = localStorage.getItem('lubaanLocations');
+    if (saved) {
+        try {
+            locations = JSON.parse(saved);
+        } catch(e) {
+            console.log('Error loading locations, using default');
+        }
+    }
+}
+
+// ============================================================
+// SHAKE ANIMATION CSS
+// ============================================================
+const shakeStyle = document.createElement("style");
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-10px); }
+        40% { transform: translateX(10px); }
+        60% { transform: translateX(-6px); }
+        80% { transform: translateX(6px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
+
