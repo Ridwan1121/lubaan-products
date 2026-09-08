@@ -1,287 +1,42 @@
-﻿// ============================================================
-// LUBAAAN PRODUCTS - JAVASCRIPT (Sax ah)
+﻿
+// ============================================================
+// ADMIN PANEL - Sax Login
 // ============================================================
 
-// ============================================================
-// DATA: 20 goobood (15 Lubaan + 5 Herbal)
-// ============================================================
-let locations = [
-    { name: "Paris Dental Clinic", address: "Waddada Gargar, kasoo horjeedka ex Nasiiba", type: "Kilinik" },
-    { name: "Geesh Supermarket", address: "Xaafada Masalaha", type: "Supermarket" },
-    { name: "Ciir Supermarket", address: "Xaafada Masalaha", type: "Supermarket" },
-    { name: "Libax Pharmacy", address: "Suuqa Hoose, agagaarka istaanka baska Cabaye", type: "Pharmacy" },
-    { name: "Boqljire Supermarket", address: "Galbeedka magaalada, xaafada Boqljire (dhinaca buurta Kala Jexan)", type: "Supermarket" },
-    { name: "Najax Dental Clinic", address: "Togdheer, kasoo horjeedka Fooqa Aadan Nayntiin", type: "Kilinik" },
-    { name: "Gargar Dental Clinic", address: "Ku dheggan Dhakhtarka Gargar", type: "Kilinik" },
-    { name: "Circle Supermarket", address: "Xaafada Pepsi, Bilowga waddada Jaamacadda Hargeisa", type: "Supermarket" },
-    { name: "Gafane Supermarket", address: "Waddada galbeedka dhinaca buurta Kala Jexan", type: "Supermarket" },
-    { name: "Smile Zone Dental Clinic", address: "Saldhig Dhexe", type: "Kilinik" },
-    { name: "Family Mart", address: "Goolada sare ee Jigjiga Yar", type: "Supermarket" },
-    { name: "Zirconi Dental Clinic", address: "Ka soo horjeedka Gym-ka Bilkhayr", type: "Kilinik" },
-    { name: "Liiban Supermarket", address: "New Hargeisa", type: "Supermarket" },
-    { name: "Salama Supermarket", address: "New Hargeisa, agagaarka xeero Traffic-ka", type: "Supermarket" },
-    { name: "Faraska Supermarket", address: "New Hargeisa", type: "Supermarket" },
-    { name: "Jabamila Herbal", address: "Suuqa Wahen, Asla Miles, City Center", type: "Herbal" },
-    { name: "Dahabshiil Herbal Center", address: "Waddada weyn ee City Center, agagaarka Keysa Bausharo", type: "Herbal" },
-    { name: "Hargeisa Herbal Pharmacy", address: "Ka timaada Saldhiga Dhexe, Mustjamaca Wayn", type: "Herbal" },
-    { name: "Wahen Herbal Clinic", address: "Suuqa Wahen, dhinaca waddada weyn", type: "Herbal" },
-    { name: "City Herbal Store", address: "City Center, Keysa Bausharo, agagaarka waddada weyn", type: "Herbal" }
-];
-
-// ============================================================
-// SAVE & LOAD (localStorage)
-// ============================================================
-function saveLocations() {
-    localStorage.setItem('lubaanLocations', JSON.stringify(locations));
-}
-
-function loadLocations() {
-    const saved = localStorage.getItem('lubaanLocations');
-    if (saved) {
-        try {
-            locations = JSON.parse(saved);
-        } catch(e) {
-            console.log('Error loading locations');
-        }
-    }
-}
-loadLocations();
-
-// ============================================================
-// RENDER - Muuji goobaha
-// ============================================================
-function render() {
-    const searchLower = document.getElementById('searchInput').value.toLowerCase().trim();
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    let currentFilter = 'all';
-    filterBtns.forEach(btn => {
-        if (btn.classList.contains('active')) currentFilter = btn.dataset.filter;
-    });
-
-    const filtered = locations.filter(loc => {
-        if (currentFilter !== 'all' && loc.type !== currentFilter) return false;
-        if (searchLower) {
-            const match = loc.name.toLowerCase().includes(searchLower) ||
-                          loc.address.toLowerCase().includes(searchLower) ||
-                          loc.type.toLowerCase().includes(searchLower);
-            if (!match) return false;
-        }
-        return true;
-    });
-
-    const countEl = document.getElementById('resultsCount');
-    if (countEl) countEl.textContent = `${filtered.length} goobood oo la helay`;
-    
-    const grid = document.getElementById('locationGrid');
-    if (!grid) return;
-    grid.innerHTML = '';
-
-    if (filtered.length === 0) {
-        grid.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px 0; color:#64748b;">Ma jirto goob ku habboona.</p>';
-        return;
-    }
-
-    filtered.forEach((loc, index) => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.style.animationDelay = `${index * 0.03}s`;
-
-        const tagClass = loc.type.toLowerCase() === 'supermarket' ? 'market' :
-                         loc.type.toLowerCase() === 'killinik' ? 'clinic' :
-                         loc.type.toLowerCase() === 'pharmacy' ? 'pharmacy' : 'herbal';
-
-        const originalIndex = locations.indexOf(loc);
-
-        card.innerHTML = `
-            <h3>${loc.name}</h3>
-            <p class="address"><i class="fas fa-map-pin"></i> ${loc.address}</p>
-            <span class="tag ${tagClass}">${loc.type}</span>
-            <div class="card-actions">
-                <button class="delete-btn" onclick="deleteLocation(${originalIndex})">
-                    <i class="fas fa-trash-alt"></i> Tirtir
-                </button>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
-}
-
-// ============================================================
-// SEARCH & FILTER
-// ============================================================
-function searchLocations() {
-    const val = document.getElementById('searchInput').value;
-    const clearBtn = document.getElementById('clearBtn');
-    if (clearBtn) clearBtn.classList.toggle('visible', val.length > 0);
-    render();
-}
-
-function clearSearch() {
-    const input = document.getElementById('searchInput');
-    const clearBtn = document.getElementById('clearBtn');
-    if (input) input.value = '';
-    if (clearBtn) clearBtn.classList.remove('visible');
-    render();
-    if (input) input.focus();
-}
-
-function filterLocations(type) {
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.filter === type) btn.classList.add('active');
-    });
-    render();
-}
-
-// ============================================================
-// ADD & DELETE LOCATION
-// ============================================================
-function addLocation() {
-    const nameInput = document.getElementById('newName');
-    const addressInput = document.getElementById('newAddress');
-    const typeSelect = document.getElementById('newType');
-    const msg = document.getElementById('adminMessage');
-
-    if (!nameInput || !addressInput || !typeSelect) {
-        console.log("Admin form elements not found");
-        return;
-    }
-
-    const name = nameInput.value.trim();
-    const address = addressInput.value.trim();
-    const type = typeSelect.value;
-
-    if (!name || !address) {
-        if (msg) {
-            msg.textContent = '⚠️ Fadlan buuxi magaca iyo ciwaanka!';
-            msg.className = 'admin-message error';
-        }
-        return;
-    }
-
-    if (locations.some(loc => loc.name.toLowerCase() === name.toLowerCase())) {
-        if (msg) {
-            msg.textContent = '⚠️ Goobtan magaceeda ayaa hore u jirtay!';
-            msg.className = 'admin-message error';
-        }
-        return;
-    }
-
-    locations.push({ name, address, type });
-    saveLocations();
-    render();
-
-    nameInput.value = '';
-    addressInput.value = '';
-    if (msg) {
-        msg.textContent = `✅ "${name}" waa la ku daray!`;
-        msg.className = 'admin-message success';
-        setTimeout(() => { msg.textContent = ''; msg.className = 'admin-message'; }, 3000);
-    }
-    
-    // Update admin list if visible
-    if (document.getElementById('adminLocationList')) {
-        renderAdminList();
-    }
-}
-
-function deleteLocation(index) {
-    const name = locations[index].name;
-    if (confirm(`Ma hubtaa inaad tirtirto "${name}"?`)) {
-        locations.splice(index, 1);
-        saveLocations();
-        render();
-        const msg = document.getElementById('adminMessage');
-        if (msg) {
-            msg.textContent = `✅ "${name}" waa la tirtiray!`;
-            msg.className = 'admin-message success';
-            setTimeout(() => { msg.textContent = ''; msg.className = 'admin-message'; }, 2000);
-        }
-        if (document.getElementById('adminLocationList')) {
-            renderAdminList();
-        }
-    }
-}
-
-// ============================================================
-// VISITOR COUNTER
-// ============================================================
-function updateVisitorCounter() {
-    let count = localStorage.getItem('lubaanVisitors');
-    if (count === null) count = 1;
-    else count = parseInt(count) + 1;
-    localStorage.setItem('lubaanVisitors', count);
-    const counter = document.getElementById('visitorCounter');
-    if (counter) counter.textContent = `👤 Booqdayaasha: ${count}`;
-    return count;
-}
-
-const today = new Date().toDateString();
-const lastVisit = localStorage.getItem('lubaanLastVisit');
-if (lastVisit !== today) {
-    let total = localStorage.getItem('lubaanTotalVisitors');
-    if (total === null) total = 0;
-    total = parseInt(total) + 1;
-    localStorage.setItem('lubaanTotalVisitors', total);
-    localStorage.setItem('lubaanLastVisit', today);
-}
-
-// ============================================================
-// VISITOR IP & LOCATION
-// ============================================================
-function getVisitorLocation() {
-    fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-            const info = {
-                ip: data.ip || 'Unknown',
-                city: data.city || 'Hargeisa',
-                country: data.country_name || 'Somaliland'
-            };
-            localStorage.setItem('lubaanVisitorIP', info.ip);
-            localStorage.setItem('lubaanVisitorCity', info.city);
-            localStorage.setItem('lubaanVisitorCountry', info.country);
-            const el = document.getElementById('visitorLocation');
-            if (el) el.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${info.city}, ${info.country}`;
-        })
-        .catch(() => {
-            fetch('https://ipinfo.io/json')
-                .then(res => res.json())
-                .then(data => {
-                    const el = document.getElementById('visitorLocation');
-                    if (el) el.innerHTML = `<i class="fas fa-map-marker-alt"></i> ${data.city || 'Hargeisa'}, ${data.country || 'Somaliland'}`;
-                })
-                .catch(() => {});
-        });
-}
-
-// ============================================================
-// ADMIN PANEL - LOGIN (SAX)
-// ============================================================
-
-// Admin credentials - BEDEL HADDAAD RABTO
+// Admin credentials (Waxaad bedeli kartaa haddii aad rabto)
 const ADMIN_EMAIL = "akiidonly@gmail.com";
 const ADMIN_PASSWORD = "Akiid12345";
 
+// Check admin login - function sax ah
 function checkAdminLogin() {
+    console.log("Checking admin login...");
+    
     const emailInput = document.getElementById('adminEmail');
     const passwordInput = document.getElementById('adminPassword');
     const errorMsg = document.getElementById('adminError');
     
+    // Hubi haddii qaybaha ay jiraan
     if (!emailInput || !passwordInput) {
-        console.log("Admin form elements not found");
+        console.log("Error: Email or password field not found!");
         return;
     }
     
     const email = emailInput.value.trim();
     const password = passwordInput.value.trim();
     
+    console.log("Email entered:", email);
+    console.log("Admin email:", ADMIN_EMAIL);
+    
+    // Hubi credentials
     if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        console.log("Login successful!");
         if (errorMsg) errorMsg.style.display = 'none';
+        
+        // Kaydi session
         sessionStorage.setItem('adminLoggedIn', 'true');
         sessionStorage.setItem('adminEmail', email);
         
-        // Show admin content
+        // Muuji admin content
         const lock = document.getElementById('adminLock');
         const content = document.getElementById('adminContent');
         if (lock) lock.style.display = 'none';
@@ -290,44 +45,66 @@ function checkAdminLogin() {
             content.classList.add('active');
         }
         
+        // Bedel badhanka toggle
         const toggleBtn = document.getElementById('adminToggleBtn');
         if (toggleBtn) {
             toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul (Furan)';
         }
         
+        // Render admin list
         renderAdminList();
+        
     } else {
+        console.log("Login failed - wrong credentials");
         if (errorMsg) {
             errorMsg.style.display = 'block';
+            errorMsg.textContent = '⚠️ Email ama Password waa khalad! Fadlan isku day mar kale.';
         }
         if (passwordInput) {
             passwordInput.value = '';
             passwordInput.focus();
+            passwordInput.style.animation = 'shake 0.4s ease';
+            setTimeout(() => { passwordInput.style.animation = ''; }, 500);
         }
     }
 }
 
+// Toggle admin panel
 function toggleAdminPanel() {
+    console.log("Toggle admin panel clicked");
     const adminSection = document.getElementById('adminSection');
     const toggleBtn = document.getElementById('adminToggleBtn');
     
-    if (!adminSection) return;
+    if (!adminSection) {
+        console.log("Admin section not found!");
+        return;
+    }
     
     const isVisible = adminSection.style.display !== 'none' && adminSection.style.display !== '';
     
     if (isVisible) {
-        // Hide
+        // Hide admin
         adminSection.style.display = 'none';
         adminSection.classList.remove('active');
         if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul';
+        // Lock admin
+        const lock = document.getElementById('adminLock');
+        const content = document.getElementById('adminContent');
+        if (lock) lock.style.display = 'block';
+        if (content) {
+            content.style.display = 'none';
+            content.classList.remove('active');
+        }
         sessionStorage.removeItem('adminLoggedIn');
     } else {
-        // Show
+        // Show admin
         adminSection.style.display = 'block';
         adminSection.classList.add('active');
         if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-times"></i> Xir Maamul';
         
+        // Check if already logged in
         if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            // Already logged in - show content
             const lock = document.getElementById('adminLock');
             const content = document.getElementById('adminContent');
             if (lock) lock.style.display = 'none';
@@ -337,6 +114,7 @@ function toggleAdminPanel() {
             }
             renderAdminList();
         } else {
+            // Show login form
             const lock = document.getElementById('adminLock');
             const content = document.getElementById('adminContent');
             if (lock) lock.style.display = 'block';
@@ -344,12 +122,14 @@ function toggleAdminPanel() {
                 content.style.display = 'none';
                 content.classList.remove('active');
             }
+            // Clear error
             const error = document.getElementById('adminError');
             if (error) error.style.display = 'none';
         }
     }
 }
 
+// Lock admin (ka bax)
 function lockAdmin() {
     const lock = document.getElementById('adminLock');
     const content = document.getElementById('adminContent');
@@ -368,6 +148,19 @@ function lockAdmin() {
     if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul';
 }
 
+// Show admin content (kadib login)
+function showAdminContent() {
+    const lock = document.getElementById('adminLock');
+    const content = document.getElementById('adminContent');
+    if (lock) lock.style.display = 'none';
+    if (content) {
+        content.style.display = 'block';
+        content.classList.add('active');
+    }
+    renderAdminList();
+}
+
+// Render admin location list
 function renderAdminList() {
     const container = document.getElementById('adminLocationList');
     if (!container) return;
@@ -392,42 +185,57 @@ function renderAdminList() {
     });
 }
 
-// ============================================================
-// INIT - Marka bogga la soo dejiyo
-// ============================================================
+// Override addLocation and deleteLocation
+const originalAddLocation = addLocation;
+addLocation = function() {
+    originalAddLocation();
+    if (document.getElementById('adminLocationList')) {
+        renderAdminList();
+    }
+};
+
+const originalDeleteLocation = deleteLocation;
+deleteLocation = function(index) {
+    originalDeleteLocation(index);
+    if (document.getElementById('adminLocationList')) {
+        renderAdminList();
+    }
+};
+
+// Check session on page load
 document.addEventListener('DOMContentLoaded', function() {
-    updateVisitorCounter();
-    getVisitorLocation();
-    render();
-    
-    const searchInput = document.getElementById('searchInput');
-    const clearBtn = document.getElementById('clearBtn');
-    if (searchInput) searchInput.addEventListener('input', searchLocations);
-    if (clearBtn) clearBtn.addEventListener('click', clearSearch);
+    console.log("DOM loaded - checking admin session");
     
     // Show admin toggle button
     const toggleBtn = document.getElementById('adminToggleBtn');
-    if (toggleBtn) toggleBtn.style.display = 'inline-flex';
+    if (toggleBtn) {
+        toggleBtn.style.display = 'inline-flex';
+    }
     
-    // Check if admin already logged in
+    // Check if already logged in
     if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        console.log("Admin already logged in");
         const adminSection = document.getElementById('adminSection');
         if (adminSection) {
             adminSection.style.display = 'block';
             adminSection.classList.add('active');
             if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul (Furan)';
-            const lock = document.getElementById('adminLock');
-            const content = document.getElementById('adminContent');
-            if (lock) lock.style.display = 'none';
-            if (content) {
-                content.style.display = 'block';
-                content.classList.add('active');
-            }
-            renderAdminList();
+            showAdminContent();
         }
     }
 });
 
-console.log("✅ Lubaan Products JavaScript loaded successfully!");
-console.log("📧 Admin Email: akiidonly@gmail.com");
-console.log("🔑 Admin Password: Akiid12345");
+// Shake animation
+const shakeStyle = document.createElement("style");
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-10px); }
+        40% { transform: translateX(10px); }
+        60% { transform: translateX(-6px); }
+        80% { transform: translateX(6px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
+
+console.log("Admin script loaded! Credentials: " + ADMIN_EMAIL);
