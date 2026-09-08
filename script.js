@@ -207,3 +207,61 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('searchInput').addEventListener('input', searchLocations);
     document.getElementById('clearBtn').addEventListener('click', clearSearch);
 });
+
+// ============================================================
+// ADMIN PASSWORD PROTECTION
+// ============================================================
+const ADMIN_PASSWORD = "Lubaan2026";  // <-- Password-ka (Waxaad bedeli kartaa)
+
+function checkAdminPassword() {
+    const input = document.getElementById('adminPassword');
+    const error = document.getElementById('adminError');
+    const lock = document.getElementById('adminLock');
+    const content = document.getElementById('adminContent');
+    
+    if (input.value === ADMIN_PASSWORD) {
+        lock.style.display = 'none';
+        content.style.display = 'block';
+        error.style.display = 'none';
+        // Kaydi xogta (session)
+        sessionStorage.setItem('adminLoggedIn', 'true');
+    } else {
+        error.style.display = 'block';
+        input.value = '';
+        input.focus();
+        // Shake animation
+        input.style.animation = 'shake 0.4s ease';
+        setTimeout(() => { input.style.animation = ''; }, 500);
+    }
+}
+
+function lockAdmin() {
+    document.getElementById('adminLock').style.display = 'block';
+    document.getElementById('adminContent').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+    sessionStorage.removeItem('adminLoggedIn');
+}
+
+// Hubi haddii admin hore u soo galay
+document.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        document.getElementById('adminLock').style.display = 'none';
+        document.getElementById('adminContent').style.display = 'block';
+    }
+});
+
+// Ku dar shake animation CSS
+const styleSheet = document.createElement("style");
+styleSheet.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-10px); }
+        40% { transform: translateX(10px); }
+        60% { transform: translateX(-6px); }
+        80% { transform: translateX(6px); }
+    }
+`;
+document.head.appendChild(styleSheet);
+
+// Bedel addLocation si ay u shaqeyso kadib login
+// (Waxaan isku daynaa inaan ilaalinno hawlaha hore)
