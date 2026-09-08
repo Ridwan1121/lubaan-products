@@ -7,6 +7,20 @@
 const ADMIN_EMAIL = "akiidonly@gmail.com";
 const ADMIN_PASSWORD = "Akiid12345";
 
+function switchMode(mode) {
+    const viewMode = document.getElementById('viewMode');
+    const adminMode = document.getElementById('adminMode');
+    const viewModeBtn = document.getElementById('viewModeBtn');
+    const adminModeBtn = document.getElementById('adminModeBtn');
+    if (!viewMode || !adminMode) return;
+
+    const isAdmin = mode === 'admin';
+    viewMode.style.display = isAdmin ? 'none' : 'block';
+    adminMode.style.display = isAdmin ? 'block' : 'none';
+    viewModeBtn?.classList.toggle('active', !isAdmin);
+    adminModeBtn?.classList.toggle('active', isAdmin);
+}
+
 // Check admin login - function sax ah
 function checkAdminLogin() {
     console.log("Checking admin login...");
@@ -21,14 +35,14 @@ function checkAdminLogin() {
         return;
     }
     
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
+    const email = emailInput.value.replace(/\s/g, '').toLowerCase();
+    const password = passwordInput.value.replace(/\s/g, '');
     
     console.log("Email entered:", email);
     console.log("Admin email:", ADMIN_EMAIL);
     
     // Hubi credentials
-    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    if (email === ADMIN_EMAIL.toLowerCase() && password === ADMIN_PASSWORD) {
         console.log("Login successful!");
         if (errorMsg) errorMsg.style.display = 'none';
         
@@ -72,7 +86,7 @@ function checkAdminLogin() {
 // Toggle admin panel
 function toggleAdminPanel() {
     console.log("Toggle admin panel clicked");
-    const adminSection = document.getElementById('adminSection');
+    const adminSection = document.getElementById('adminMode');
     const toggleBtn = document.getElementById('adminToggleBtn');
     
     if (!adminSection) {
@@ -84,7 +98,7 @@ function toggleAdminPanel() {
     
     if (isVisible) {
         // Hide admin
-        adminSection.style.display = 'none';
+        switchMode('view');
         adminSection.classList.remove('active');
         if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul';
         // Lock admin
@@ -98,7 +112,7 @@ function toggleAdminPanel() {
         sessionStorage.removeItem('adminLoggedIn');
     } else {
         // Show admin
-        adminSection.style.display = 'block';
+        switchMode('admin');
         adminSection.classList.add('active');
         if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-times"></i> Xir Maamul';
         
@@ -163,10 +177,11 @@ function showAdminContent() {
 // Render admin location list
 function renderAdminList() {
     const container = document.getElementById('adminLocationList');
-    if (!container) return;
+    const locationData = window.locations;
+    if (!container || !Array.isArray(locationData)) return;
     
     container.innerHTML = '';
-    locations.forEach((loc, index) => {
+    locationData.forEach((loc, index) => {
         const item = document.createElement('div');
         item.className = 'admin-list-item';
         const tagClass = loc.type.toLowerCase() === 'supermarket' ? 'market' :
@@ -215,9 +230,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check if already logged in
     if (sessionStorage.getItem('adminLoggedIn') === 'true') {
         console.log("Admin already logged in");
-        const adminSection = document.getElementById('adminSection');
+        const adminSection = document.getElementById('adminMode');
         if (adminSection) {
-            adminSection.style.display = 'block';
+            switchMode('admin');
             adminSection.classList.add('active');
             if (toggleBtn) toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul (Furan)';
             showAdminContent();

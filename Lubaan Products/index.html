@@ -1,47 +1,571 @@
 ﻿<!DOCTYPE html>
 <html lang="so">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lubaan Products - Hargeisa</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lubaan Products - Hargeisa, Burco iyo Boorama</title>
+    <meta name="description" content="Lubaan Products - Lubaanta Dawada Ilkaha &amp; Herbalka. Ka iibso Jumlada Hargeisa, Burco iyo Boorama. Half Kartoon (36 Pcs) ama Kartoon Buuxa (72 Pcs)." />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦷</text></svg>" />
+
+    <!-- Google Tag Manager + Consent Mode v2 -->
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+        
+        gtag('set', 'ads_data_redaction', true);
+        gtag('set', 'url_passthrough', true);
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MF3RVFLT');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Consent Banner Styles -->
+    <style>
+        #consent-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 16px 20px;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            z-index: 9999;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            border-top: 3px solid #1d4ed8;
+        }
+        #consent-banner p {
+            margin: 0;
+            font-size: 0.95rem;
+            flex: 1;
+            min-width: 200px;
+        }
+        #consent-banner p i {
+            color: #0ea5e9;
+            margin-right: 8px;
+        }
+        #consent-banner .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        #consent-banner button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        #consent-banner .btn-accept {
+            background: #1d4ed8;
+            color: white;
+        }
+        #consent-banner .btn-accept:hover {
+            background: #1e40af;
+            transform: scale(1.02);
+        }
+        #consent-banner .btn-deny {
+            background: #334155;
+            color: #e2e8f0;
+        }
+        #consent-banner .btn-deny:hover {
+            background: #475569;
+        }
+        #consent-banner .btn-settings {
+            background: transparent;
+            color: #94a3b8;
+            text-decoration: underline;
+        }
+        #consent-banner .btn-settings:hover {
+            color: #e2e8f0;
+        }
+        @media (max-width: 600px) {
+            #consent-banner {
+                flex-direction: column;
+                text-align: center;
+            }
+            #consent-banner .btn-group {
+                justify-content: center;
+            }
+        }
+        /* Settings Modal */
+        #settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        #settings-modal .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 400px;
+            width: 90%;
+            color: #0f172a;
+        }
+        #settings-modal h3 {
+            margin-bottom: 15px;
+        }
+        #settings-modal .setting-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+            align-items: center;
+        }
+        #settings-modal .setting-item:last-child {
+            border-bottom: none;
+        }
+        #settings-modal button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 6px;
+        }
+        #settings-modal .btn-save {
+            background: #1d4ed8;
+            color: white;
+        }
+        #settings-modal .btn-save:hover {
+            background: #1e40af;
+        }
+        #settings-modal .btn-close-modal {
+            background: #e2e8f0;
+            color: #334155;
+        }
+        #settings-modal .btn-close-modal:hover {
+            background: #cbd5e1;
+        }
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #1d4ed8;
+            cursor: pointer;
+        }
+    </style>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 </head>
 <body>
 
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MF3RVFLT"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <!-- Consent Banner -->
+    <div id="consent-banner">
+        <p>
+            <i class="fas fa-shield-alt"></i>
+            Waxaan isticmaalnaa cookies si aan u wanaajino khibradaada. 
+            Waanu xisaabtannaa go'aankaaga.
+        </p>
+        <div class="btn-group">
+            <button class="btn-settings" onclick="showSettings()"><i class="fas fa-cog"></i> Settings</button>
+            <button class="btn-deny" onclick="denyConsent()"><i class="fas fa-times"></i> Deny</button>
+            <button class="btn-accept" onclick="acceptConsent()"><i class="fas fa-check"></i> Accept All</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal">
+        <div class="modal-content">
+            <h3><i class="fas fa-sliders-h"></i> Cookie Settings</h3>
+            <p style="color:#64748b; font-size:0.9rem; margin-bottom:15px;">
+                Dooro noocyada cookies-ka aad ogolaanayso.
+            </p>
+            <div class="setting-item">
+                <span><i class="fas fa-chart-line" style="color:#1d4ed8;"></i> Analytics</span>
+                <input type="checkbox" id="consent-analytics" checked />
+            </div>
+            <div class="setting-item">
+                <span><i class="fas fa-ad" style="color:#f59e0b;"></i> Advertising</span>
+                <input type="checkbox" id="consent-advertising" checked />
+            </div>
+            <div class="setting-item">
+                <span><i class="fas fa-user" style="color:#10b981;"></i> Personalization</span>
+                <input type="checkbox" id="consent-personalization" checked />
+            </div>
+            <button class="btn-save" onclick="saveSettings()"><i class="fas fa-save"></i> Save Settings</button>
+            <button class="btn-close-modal" onclick="closeSettings()">Close</button>
+        </div>
+    </div>
+
+    <!-- Header -->
     <header>
-        <h1>Lubaan Products</h1>
-        <p>Hel Lubaanta Dawada Ilkaha ee Jumlada & Goobaha Lagu Iibiyo Hargeisa</p>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-tooth"></i>
+                <h1>Lubaan <span>Products</span></h1>
+            </div>
+            <p>Lubaanta Dawada Ilkaha &amp; Herbalka — Hargeisa, Burco iyo Boorama</p>
+        </div>
     </header>
 
     <main class="container">
-        <section class="search-section">
-            <input type="text" id="searchInput" placeholder="Ka raadi goob ama xaafad Hargeisa ka mid ah..." onkeyup="searchLocations()">
+        <!-- ========================================== -->
+        <!-- ADMIN TOGGLE BUTTON (Only visible to admin) -->
+        <!-- ========================================== -->
+        <div class="admin-toggle-container">
+            <button id="adminToggleBtn" class="admin-toggle-btn" onclick="toggleAdminPanel()" style="display:none;">
+                <i class="fas fa-cog"></i> Maamul
+            </button>
+        </div>
+        <!-- ========================================== -->
+        <!-- VIEW MODE / ADMIN PANEL TOGGLE            -->
+        <!-- ========================================== -->
+        <div class="mode-toggle">
+            <button id="viewModeBtn" class="mode-btn active" onclick="switchMode('view')">
+                <i class="fas fa-eye"></i> Goobaha
+            </button>
+            <button id="adminModeBtn" class="mode-btn" onclick="switchMode('admin')">
+                <i class="fas fa-cog"></i> Maamul
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW MODE - Dadka ku arkaan goobaha        -->
+        <!-- ========================================== -->
+        <section id="viewMode" class="view-mode">
+            <div class="view-header">
+                <h2><i class="fas fa-map-marked-alt"></i> Dhammaan Goobaha</h2>
+                <p class="view-subtitle">Raadi oo hel goobaha kuu dhow ee Hargeisa, Burco iyo Boorama</p>
+            </div>
+            <!-- Search -->
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Raadi magaca goobta, ciwaanka, ama nooca..." onkeyup="searchLocations()" />
+                    <button id="clearBtn" class="clear-btn" onclick="clearSearch()"><i class="fas fa-times-circle"></i></button>
+                </div>
+                <div class="filter-tags">
+                    <button class="filter-btn active" data-filter="all" onclick="filterLocations('all')">Dhammaan</button>
+                    <button class="filter-btn" data-filter="Supermarket" onclick="filterLocations('Supermarket')"><i class="fas fa-store"></i> Supermarket</button>
+                    <button class="filter-btn" data-filter="Kilinik" onclick="filterLocations('Kilinik')"><i class="fas fa-clinic-medical"></i> Kilinik</button>
+                    <button class="filter-btn" data-filter="Pharmacy" onclick="filterLocations('Pharmacy')"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</button>
+                    <button class="filter-btn" data-filter="Herbal" onclick="filterLocations('Herbal')"><i class="fas fa-leaf"></i> Herbal</button>
+                </div>
+                <p id="resultsCount" class="results-count">20 goobood oo la helay</p>
+            </div>
+            <!-- Cards -->
+            <section class="grid" id="locationGrid"></section>
         </section>
 
-        <section class="grid" id="locationGrid">
-            <div class="card">
-                <h3>Paris Dental Clinic</h3>
-                <p class="address">📍 Waddada Gargar, kasoo horjeedka ex Nasiiba</p>
-                <span class="tag">Kilinik</span>
+        <!-- ========================================== -->
+        <!-- ADMIN PANEL - Maamulka Goobaha            -->
+        <!-- ========================================== -->
+        <section id="adminMode" class="admin-panel" style="display:none;">
+            <div class="admin-header">
+                <h2><i class="fas fa-tools"></i> Maamulka Goobaha</h2>
+                <p class="admin-subtitle">Ku dar ama tirtir goobo cusub</p>
             </div>
-            <div class="card">
-                <h3>Geesh Supermarket</h3>
-                <p class="address">📍 Xaafada Masalaha</p>
-                <span class="tag">Supermarket</span>
+            
+            <!-- Admin Lock -->
+            <div class="admin-lock" id="adminLock">
+                <div class="admin-lock-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3><i class="fas fa-shield-alt"></i> Geli Maamulka</h3>
+                <p style="color:#64748b; font-size:0.95rem; margin-bottom:15px;">
+                    Fadlan geli Email-ka iyo Password-ka si aad u gasho maamulka.
+                </p>
+                <div class="admin-password-form">
+                    <input type="email" id="adminEmail" placeholder="Email-kaaga" onkeydown="if(event.key==='Enter') checkAdminLogin()" />
+                    <input type="password" id="adminPassword" placeholder="Password-ka" onkeydown="if(event.key==='Enter') checkAdminLogin()" />
+                    <button onclick="checkAdminLogin()" class="add-btn">
+                        <i class="fas fa-unlock"></i> Gali
+                    </button>
+                </div>
+                <p id="adminError" class="admin-message error" style="display:none;">⚠️ Email ama Password waa khalad! Fadlan isku day mar kale.</p>
             </div>
-            <div class="card">
-                <h3>Libax Pharmacy</h3>
-                <p class="address">📍 Suuqa Hoose, agagaarka istaanka baska Cabaye</p>
-                <span class="tag">Pharmacy</span>
-            </div>
-            <div class="card">
-                <h3>Circle Supermarket</h3>
-                <p class="address">📍 Xaafada Pepsi, bilowga waddada Jaamacadda Hargeisa</p>
-                <span class="tag">Supermarket</span>
+
+            <!-- Admin Content -->
+            <div id="adminContent" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+                    <h3><i class="fas fa-plus-circle"></i> Ku Dar Goob Cusub</h3>
+                    <button onclick="lockAdmin()" class="logout-btn" style="background:#ef4444; color:white; border:none; padding:8px 20px; border-radius:8px; font-weight:600; cursor:pointer; transition:0.3s; font-size:0.85rem;">
+                        <i class="fas fa-sign-out-alt"></i> Ka Bax
+                    </button>
+                </div>
+                <div class="admin-form">
+                    <input type="text" id="newName" placeholder="Magaca Goobta (e.g. Jabamila Herbal)" />
+                    <input type="text" id="newAddress" placeholder="Ciwaanka (e.g. Suuqa Wahen, City Center)" />
+                    <select id="newType">
+                        <option value="Supermarket">Supermarket</option>
+                        <option value="Kilinik">Kilinik</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Herbal">Herbal</option>
+                    </select>
+                    <button onclick="addLocation()" class="add-btn"><i class="fas fa-save"></i> Ku Dar</button>
+                </div>
+                <p id="adminMessage" class="admin-message"></p>
+                
+                <!-- Admin Location List -->
+                <div class="admin-location-list">
+                    <h4><i class="fas fa-list"></i> Goobaha Hadda Jira</h4>
+                    <div id="adminLocationList" class="admin-list"></div>
+                </div>
             </div>
         </section>
+        <!-- ========================================== -->
+        <!-- QAYBTA IIBKA JUMLADA (WHOLESALE)          -->
+        <!-- ========================================== -->
+        <section class="wholesale-section">
+            <div class="wholesale-badge">
+                <i class="fas fa-tags"></i> Jumlada
+            </div>
+            <h2><i class="fas fa-handshake"></i> Miyaad tahay Ganacsi Rabo Jumlada?</h2>
+            
+            <div class="wholesale-content">
+                <p class="main-text">
+                    <strong>Lubaan Products</strong> waxay ku siisaa <strong>Half Kartoon (36 Pcs)</strong> ama 
+                    <strong>Kartoon Buuxa (72 Pcs)</strong> oo qiimo dhimis leh. 
+                    Waxaan ka iibinaa jumlada <strong>Hargeisa, Burco, iyo Boorama</strong>.
+                </p>
+                
+                <p class="sub-text">
+                    <i class="fas fa-quote-left"></i> 
+                    Lubaan Products waxay goobaha ay jumlada ka iibiso ay ka caawisaa 
+                    sida bulshadu ugu heli lahayd alaabta si fudud oo ku dhow.
+                    <i class="fas fa-quote-right"></i>
+                </p>
+
+                <div class="locations-box">
+                    <div class="location-item">
+                        <i class="fas fa-map-marker-alt" style="color:#1d4ed8;"></i>
+                        <div>
+                            <strong>Hargeisa</strong>
+                            <span>15+ goobood oo kala duwan</span>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <i class="fas fa-map-marker-alt" style="color:#059669;"></i>
+                        <div>
+                            <strong>Burco</strong>
+                            <span>Saytuuni Herbals, kasoo horjeedka Mr Merchant</span>
+                        </div>
+                    </div>
+                    <div class="location-item">
+                        <i class="fas fa-map-marker-alt" style="color:#d97706;"></i>
+                        <div>
+                            <strong>Boorama</strong>
+                            <span>Kasoo horjeedka Telesom-ta weyn, una dhow Goljano Hotel</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-group-wholesale">
+                    <a href="https://wa.me/252634008040?text=Waxaan%20doonayaa%20inaan%20iibsado%20Lubaanta%20Dawada%20Ilkaha%20Jumladan%20(%20Half%20Kartoon%20=%2036%20pcs%20ama%20Kartoon%20buuxa%20=%2072%20pcs%20)" 
+                       class="whatsapp-btn" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Nagala Soo Xiriir WhatsApp
+                    </a>
+                    <a href="tel:+252634008040" class="call-btn">
+                        <i class="fas fa-phone"></i> Wac: 0634008040
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- QAYBTA RAADINTA (SEARCH)                  -->
+        <!-- ========================================== -->
+        <section class="search-section">
+            <div class="search-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Raadi magaca goobta, ciwaanka, ama nooca..." onkeyup="searchLocations()" />
+                <button id="clearBtn" class="clear-btn" onclick="clearSearch()"><i class="fas fa-times-circle"></i></button>
+            </div>
+            <div class="filter-tags">
+                <button class="filter-btn active" data-filter="all" onclick="filterLocations('all')">Dhammaan</button>
+                <button class="filter-btn" data-filter="Supermarket" onclick="filterLocations('Supermarket')"><i class="fas fa-store"></i> Supermarket</button>
+                <button class="filter-btn" data-filter="Kilinik" onclick="filterLocations('Kilinik')"><i class="fas fa-clinic-medical"></i> Kilinik</button>
+                <button class="filter-btn" data-filter="Pharmacy" onclick="filterLocations('Pharmacy')"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</button>
+                <button class="filter-btn" data-filter="Herbal" onclick="filterLocations('Herbal')"><i class="fas fa-leaf"></i> Herbal</button>
+            </div>
+            <p id="resultsCount" class="results-count">20 goobood oo la helay</p>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- QAYBTA CARDS (GOOBAHA)                   -->
+        <!-- ========================================== -->
+        <section class="grid" id="locationGrid"></section>
     </main>
+
+    <!-- ========================================== -->
+    <!-- FOOTER                                     -->
+    <!-- ========================================== -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <i class="fas fa-tooth"></i>
+                    <span>Lubaan <span>Products</span></span>
+                    <p>Lubaanta Dawada Ilkaha &amp; Herbalka</p>
+                </div>
+                <div class="footer-contact">
+                    <h4><i class="fas fa-phone"></i> Xiriir</h4>
+                    <a href="https://wa.me/252634008040" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: +252634008040
+                    </a>
+                    <a href="tel:+252634008040">
+                        <i class="fas fa-phone"></i> Call: 0634008040
+                    </a>
+                </div>
+                <div class="footer-locations">
+                    <h4><i class="fas fa-map-marker-alt"></i> Goobaha</h4>
+                    <span>Hargeisa</span>
+                    <span>Burco</span>
+                    <span>Boorama</span>
+                </div>
+            </div>
+            <div class="visitor-stats">
+                <span id="visitorCounter">👤 Booqdayaasha: 0</span>
+                <span id="visitorLocation"><i class="fas fa-map-marker-alt"></i> Hargeisa, Somaliland</span>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Lubaan Products. Dhammaan xuquuqda way xumaantahay.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- CONSENT SCRIPT                             -->
+    <!-- ========================================== -->
+    <script>
+        const consentGiven = localStorage.getItem('consentGiven');
+        const consentSettings = JSON.parse(localStorage.getItem('consentSettings') || '{}');
+
+        function showBanner() {
+            document.getElementById('consent-banner').style.display = 'flex';
+        }
+
+        function hideBanner() {
+            document.getElementById('consent-banner').style.display = 'none';
+        }
+
+        function acceptConsent() {
+            gtag('consent', 'update', {
+                'ad_storage': 'granted',
+                'ad_user_data': 'granted',
+                'ad_personalization': 'granted',
+                'analytics_storage': 'granted'
+            });
+            localStorage.setItem('consentGiven', 'true');
+            localStorage.setItem('consentSettings', JSON.stringify({
+                analytics: true,
+                advertising: true,
+                personalization: true
+            }));
+            hideBanner();
+            setTimeout(() => { location.reload(); }, 500);
+        }
+
+        function denyConsent() {
+            gtag('consent', 'update', {
+                'ad_storage': 'denied',
+                'ad_user_data': 'denied',
+                'ad_personalization': 'denied',
+                'analytics_storage': 'denied'
+            });
+            localStorage.setItem('consentGiven', 'false');
+            localStorage.setItem('consentSettings', JSON.stringify({
+                analytics: false,
+                advertising: false,
+                personalization: false
+            }));
+            hideBanner();
+        }
+
+        function showSettings() {
+            const modal = document.getElementById('settings-modal');
+            modal.style.display = 'flex';
+            const settings = JSON.parse(localStorage.getItem('consentSettings') || '{}');
+            document.getElementById('consent-analytics').checked = settings.analytics !== false;
+            document.getElementById('consent-advertising').checked = settings.advertising !== false;
+            document.getElementById('consent-personalization').checked = settings.personalization !== false;
+        }
+
+        function closeSettings() {
+            document.getElementById('settings-modal').style.display = 'none';
+        }
+
+        function saveSettings() {
+            const analytics = document.getElementById('consent-analytics').checked;
+            const advertising = document.getElementById('consent-advertising').checked;
+            const personalization = document.getElementById('consent-personalization').checked;
+
+            gtag('consent', 'update', {
+                'ad_storage': advertising ? 'granted' : 'denied',
+                'ad_user_data': advertising ? 'granted' : 'denied',
+                'ad_personalization': personalization ? 'granted' : 'denied',
+                'analytics_storage': analytics ? 'granted' : 'denied'
+            });
+
+            localStorage.setItem('consentGiven', 'true');
+            localStorage.setItem('consentSettings', JSON.stringify({
+                analytics: analytics,
+                advertising: advertising,
+                personalization: personalization
+            }));
+
+            closeSettings();
+            hideBanner();
+            if (analytics) {
+                setTimeout(() => { location.reload(); }, 500);
+            }
+        }
+
+        if (!consentGiven) {
+            showBanner();
+        } else {
+            const settings = JSON.parse(localStorage.getItem('consentSettings') || '{}');
+            gtag('consent', 'update', {
+                'ad_storage': settings.advertising ? 'granted' : 'denied',
+                'ad_user_data': settings.advertising ? 'granted' : 'denied',
+                'ad_personalization': settings.personalization ? 'granted' : 'denied',
+                'analytics_storage': settings.analytics ? 'granted' : 'denied'
+            });
+        }
+    </script>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+
+
+
+
