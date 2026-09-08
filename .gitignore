@@ -13,3 +13,7 @@ Desktop.ini
 *.tmp
 *.temp
 *.log
+
+# Assets (optional)
+assets/images/*.psd
+assets/images/*.ai
