@@ -237,6 +237,14 @@
 
     <main class="container">
         <!-- ========================================== -->
+        <!-- ADMIN TOGGLE BUTTON (Only visible to admin) -->
+        <!-- ========================================== -->
+        <div class="admin-toggle-container">
+            <button id="adminToggleBtn" class="admin-toggle-btn" onclick="toggleAdminPanel()" style="display:none;">
+                <i class="fas fa-cog"></i> Maamul
+            </button>
+        </div>
+        <!-- ========================================== -->
         <!-- VIEW MODE / ADMIN PANEL TOGGLE            -->
         <!-- ========================================== -->
         <div class="mode-toggle">
@@ -413,7 +421,7 @@
         <!-- ========================================== -->
         <!-- QAYBTA MAAMULKA GOOBAHA (ADMIN)          -->
         <!-- ========================================== -->
-        <section class="admin-section">
+        <section class="admin-section" style="display:none;" id="adminSection">
             <h3><i class="fas fa-plus-circle"></i> Ku Dar Goob Cusub</h3>
             <div class="admin-form">
                 <input type="text" id="newName" placeholder="Magaca Goobta (e.g. Jabamila Herbal)" />
@@ -575,6 +583,7 @@
     <script src="script.js"></script>
 </body>
 </html>
+
 
 
 

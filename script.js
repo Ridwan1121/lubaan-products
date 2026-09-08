@@ -436,3 +436,153 @@ deleteLocation = function(index) {
         renderAdminList();
     }
 };
+
+// ============================================================
+// ADMIN PANEL TOGGLE (View Only + Admin)
+// ============================================================
+
+// Admin credentials
+const ADMIN_EMAIL = "akiidonly@gmail.com";
+const ADMIN_PASSWORD = "Akiid12345";
+
+// Check if admin is logged in
+let isAdminLoggedIn = false;
+
+// Toggle admin panel visibility
+function toggleAdminPanel() {
+    const adminSection = document.getElementById('adminSection');
+    const toggleBtn = document.getElementById('adminToggleBtn');
+    
+    if (adminSection.style.display === 'none' || adminSection.style.display === '') {
+        adminSection.style.display = 'block';
+        adminSection.classList.add('active');
+        toggleBtn.innerHTML = '<i class="fas fa-times"></i> Xir Maamul';
+        // Check if already logged in
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            showAdminContent();
+        }
+    } else {
+        adminSection.style.display = 'none';
+        adminSection.classList.remove('active');
+        toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul';
+        // Lock admin if not logged in
+        if (!isAdminLoggedIn) {
+            lockAdmin();
+        }
+    }
+}
+
+// Show admin content after login
+function showAdminContent() {
+    document.getElementById('adminLock').style.display = 'none';
+    document.getElementById('adminContent').style.display = 'block';
+    document.getElementById('adminContent').classList.add('active');
+    isAdminLoggedIn = true;
+    renderAdminList();
+}
+
+// Lock admin
+function lockAdmin() {
+    document.getElementById('adminLock').style.display = 'block';
+    document.getElementById('adminContent').style.display = 'none';
+    document.getElementById('adminContent').classList.remove('active');
+    document.getElementById('adminEmail').value = '';
+    document.getElementById('adminPassword').value = '';
+    isAdminLoggedIn = false;
+    sessionStorage.removeItem('adminLoggedIn');
+}
+
+// Check admin login
+function checkAdminLogin() {
+    const email = document.getElementById('adminEmail');
+    const password = document.getElementById('adminPassword');
+    const error = document.getElementById('adminError');
+    
+    if (email.value === ADMIN_EMAIL && password.value === ADMIN_PASSWORD) {
+        error.style.display = 'none';
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        showAdminContent();
+        // Update toggle button text
+        const toggleBtn = document.getElementById('adminToggleBtn');
+        toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul (Furan)';
+    } else {
+        error.style.display = 'block';
+        password.value = '';
+        password.focus();
+        password.style.animation = 'shake 0.4s ease';
+        setTimeout(() => { password.style.animation = ''; }, 500);
+    }
+}
+
+// Show admin toggle button after page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Show admin toggle button (only visible to admin)
+    const toggleBtn = document.getElementById('adminToggleBtn');
+    toggleBtn.style.display = 'inline-flex';
+    
+    // Check if already logged in
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        isAdminLoggedIn = true;
+        // Show admin section
+        const adminSection = document.getElementById('adminSection');
+        adminSection.style.display = 'block';
+        adminSection.classList.add('active');
+        document.getElementById('adminToggleBtn').innerHTML = '<i class="fas fa-cog"></i> Maamul (Furan)';
+        showAdminContent();
+    }
+});
+
+// Render admin location list
+function renderAdminList() {
+    const container = document.getElementById('adminLocationList');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    locations.forEach((loc, index) => {
+        const item = document.createElement('div');
+        item.className = 'admin-list-item';
+        const tagClass = loc.type.toLowerCase() === 'supermarket' ? 'market' :
+                         loc.type.toLowerCase() === 'killinik' ? 'clinic' :
+                         loc.type.toLowerCase() === 'pharmacy' ? 'pharmacy' : 'herbal';
+        item.innerHTML = `
+            <div class="item-info">
+                <strong>${loc.name}</strong>
+                <small>${loc.address} · <span class="tag ${tagClass}" style="font-size:0.6rem;">${loc.type}</span></small>
+            </div>
+            <div class="item-actions">
+                <button onclick="deleteLocation(${index})"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+// Override addLocation and deleteLocation to update admin list
+const originalAddLocation = addLocation;
+addLocation = function() {
+    originalAddLocation();
+    if (document.getElementById('adminLocationList')) {
+        renderAdminList();
+    }
+};
+
+const originalDeleteLocation = deleteLocation;
+deleteLocation = function(index) {
+    originalDeleteLocation(index);
+    if (document.getElementById('adminLocationList')) {
+        renderAdminList();
+    }
+};
+
+// Shake animation for password error
+const shakeStyle = document.createElement("style");
+shakeStyle.textContent = `
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-10px); }
+        40% { transform: translateX(10px); }
+        60% { transform: translateX(-6px); }
+        80% { transform: translateX(6px); }
+    }
+`;
+document.head.appendChild(shakeStyle);
