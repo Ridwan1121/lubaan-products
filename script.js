@@ -358,3 +358,81 @@ shakeStyle.textContent = `
 `;
 document.head.appendChild(shakeStyle);
 
+
+// ============================================================
+// VIEW MODE / ADMIN PANEL TOGGLE
+// ============================================================
+
+// Switch between View Mode and Admin Panel
+function switchMode(mode) {
+    const viewBtn = document.getElementById('viewModeBtn');
+    const adminBtn = document.getElementById('adminModeBtn');
+    const viewMode = document.getElementById('viewMode');
+    const adminMode = document.getElementById('adminMode');
+    
+    if (mode === 'view') {
+        viewBtn.classList.add('active');
+        adminBtn.classList.remove('active');
+        viewMode.style.display = 'block';
+        adminMode.style.display = 'none';
+    } else {
+        adminBtn.classList.add('active');
+        viewBtn.classList.remove('active');
+        viewMode.style.display = 'none';
+        adminMode.style.display = 'block';
+        // Render admin list
+        renderAdminList();
+    }
+}
+
+// Render admin location list
+function renderAdminList() {
+    const container = document.getElementById('adminLocationList');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    locations.forEach((loc, index) => {
+        const item = document.createElement('div');
+        item.className = 'admin-list-item';
+        const tagClass = loc.type.toLowerCase() === 'supermarket' ? 'market' :
+                         loc.type.toLowerCase() === 'killinik' ? 'clinic' :
+                         loc.type.toLowerCase() === 'pharmacy' ? 'pharmacy' : 'herbal';
+        item.innerHTML = `
+            <div class="item-info">
+                <strong>${loc.name}</strong>
+                <small>${loc.address} · <span class="tag ${tagClass}" style="font-size:0.6rem;">${loc.type}</span></small>
+            </div>
+            <div class="item-actions">
+                <button onclick="deleteLocation(${index})"><i class="fas fa-trash-alt"></i></button>
+            </div>
+        `;
+        container.appendChild(item);
+    });
+}
+
+// Override render to also update admin list
+const originalRender = render;
+render = function() {
+    originalRender();
+    if (document.getElementById('adminLocationList')) {
+        renderAdminList();
+    }
+};
+
+// Override addLocation to update admin list
+const originalAddLocation = addLocation;
+addLocation = function() {
+    originalAddLocation();
+    if (document.getElementById('adminLocationList')) {
+        renderAdminList();
+    }
+};
+
+// Override deleteLocation to update admin list
+const originalDeleteLocation = deleteLocation;
+deleteLocation = function(index) {
+    originalDeleteLocation(index);
+    if (document.getElementById('adminLocationList')) {
+        renderAdminList();
+    }
+};

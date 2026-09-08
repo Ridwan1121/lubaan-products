@@ -927,3 +927,170 @@ footer {
         justify-content: center;
     }
 }
+
+/* ----------------------------------------------
+   MODE TOGGLE - View / Admin
+   ---------------------------------------------- */
+.mode-toggle {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin: var(--spacing-lg) 0 var(--spacing-xl);
+    background: var(--color-white);
+    padding: var(--spacing-sm);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-sm);
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid var(--color-gray-lighter);
+}
+.mode-btn {
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border: none;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    font-family: var(--font-family);
+    background: transparent;
+    color: var(--color-gray);
+    flex: 1;
+}
+.mode-btn i {
+    margin-right: var(--spacing-xs);
+}
+.mode-btn.active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+}
+.mode-btn:hover:not(.active) {
+    background: var(--color-gray-bg);
+}
+
+/* ----------------------------------------------
+   VIEW MODE
+   ---------------------------------------------- */
+.view-mode {
+    animation: fadeInUp 0.5s ease;
+}
+.view-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+.view-header h2 {
+    font-size: var(--font-size-2xl);
+    color: var(--color-dark);
+    font-weight: 800;
+}
+.view-header h2 i {
+    color: var(--color-primary);
+    margin-right: var(--spacing-sm);
+}
+.view-subtitle {
+    color: var(--color-gray);
+    font-size: var(--font-size-base);
+}
+
+/* ----------------------------------------------
+   ADMIN PANEL
+   ---------------------------------------------- */
+.admin-panel {
+    animation: fadeInUp 0.5s ease;
+}
+.admin-header {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+.admin-header h2 {
+    font-size: var(--font-size-2xl);
+    color: var(--color-dark);
+    font-weight: 800;
+}
+.admin-header h2 i {
+    color: var(--color-primary);
+    margin-right: var(--spacing-sm);
+}
+.admin-subtitle {
+    color: var(--color-gray);
+    font-size: var(--font-size-base);
+}
+
+/* Admin Location List */
+.admin-location-list {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 2px solid var(--color-gray-lighter);
+}
+.admin-location-list h4 {
+    color: var(--color-dark);
+    margin-bottom: var(--spacing-md);
+    font-size: var(--font-size-lg);
+}
+.admin-location-list h4 i {
+    color: var(--color-primary);
+    margin-right: var(--spacing-sm);
+}
+.admin-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-sm);
+}
+.admin-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--color-gray-bg);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-sm);
+    transition: all var(--transition-base);
+}
+.admin-list-item:hover {
+    background: var(--color-gray-lighter);
+}
+.admin-list-item .item-info {
+    display: flex;
+    flex-direction: column;
+    font-size: var(--font-size-sm);
+}
+.admin-list-item .item-info strong {
+    color: var(--color-dark);
+}
+.admin-list-item .item-info small {
+    color: var(--color-gray);
+}
+.admin-list-item .item-actions {
+    display: flex;
+    gap: var(--spacing-xs);
+}
+.admin-list-item .item-actions button {
+    background: #fee2e2;
+    color: #991b1b;
+    border: none;
+    padding: 2px 10px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    transition: all var(--transition-base);
+}
+.admin-list-item .item-actions button:hover {
+    background: #fecaca;
+    transform: scale(1.04);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .mode-toggle {
+        max-width: 100%;
+    }
+    .mode-btn {
+        font-size: var(--font-size-xs);
+        padding: var(--spacing-xs) var(--spacing-md);
+    }
+    .admin-list {
+        grid-template-columns: 1fr;
+    }
+}

@@ -237,6 +237,102 @@
 
     <main class="container">
         <!-- ========================================== -->
+        <!-- VIEW MODE / ADMIN PANEL TOGGLE            -->
+        <!-- ========================================== -->
+        <div class="mode-toggle">
+            <button id="viewModeBtn" class="mode-btn active" onclick="switchMode('view')">
+                <i class="fas fa-eye"></i> Goobaha
+            </button>
+            <button id="adminModeBtn" class="mode-btn" onclick="switchMode('admin')">
+                <i class="fas fa-cog"></i> Maamul
+            </button>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- VIEW MODE - Dadka ku arkaan goobaha        -->
+        <!-- ========================================== -->
+        <section id="viewMode" class="view-mode">
+            <div class="view-header">
+                <h2><i class="fas fa-map-marked-alt"></i> Dhammaan Goobaha</h2>
+                <p class="view-subtitle">Raadi oo hel goobaha kuu dhow ee Hargeisa, Burco iyo Boorama</p>
+            </div>
+            <!-- Search -->
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Raadi magaca goobta, ciwaanka, ama nooca..." onkeyup="searchLocations()" />
+                    <button id="clearBtn" class="clear-btn" onclick="clearSearch()"><i class="fas fa-times-circle"></i></button>
+                </div>
+                <div class="filter-tags">
+                    <button class="filter-btn active" data-filter="all" onclick="filterLocations('all')">Dhammaan</button>
+                    <button class="filter-btn" data-filter="Supermarket" onclick="filterLocations('Supermarket')"><i class="fas fa-store"></i> Supermarket</button>
+                    <button class="filter-btn" data-filter="Kilinik" onclick="filterLocations('Kilinik')"><i class="fas fa-clinic-medical"></i> Kilinik</button>
+                    <button class="filter-btn" data-filter="Pharmacy" onclick="filterLocations('Pharmacy')"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</button>
+                    <button class="filter-btn" data-filter="Herbal" onclick="filterLocations('Herbal')"><i class="fas fa-leaf"></i> Herbal</button>
+                </div>
+                <p id="resultsCount" class="results-count">20 goobood oo la helay</p>
+            </div>
+            <!-- Cards -->
+            <section class="grid" id="locationGrid"></section>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- ADMIN PANEL - Maamulka Goobaha            -->
+        <!-- ========================================== -->
+        <section id="adminMode" class="admin-panel" style="display:none;">
+            <div class="admin-header">
+                <h2><i class="fas fa-tools"></i> Maamulka Goobaha</h2>
+                <p class="admin-subtitle">Ku dar ama tirtir goobo cusub</p>
+            </div>
+            
+            <!-- Admin Lock -->
+            <div class="admin-lock" id="adminLock">
+                <div class="admin-lock-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3><i class="fas fa-shield-alt"></i> Geli Maamulka</h3>
+                <p style="color:#64748b; font-size:0.95rem; margin-bottom:15px;">
+                    Fadlan geli Email-ka iyo Password-ka si aad u gasho maamulka.
+                </p>
+                <div class="admin-password-form">
+                    <input type="email" id="adminEmail" placeholder="Email-kaaga" onkeydown="if(event.key==='Enter') checkAdminLogin()" />
+                    <input type="password" id="adminPassword" placeholder="Password-ka" onkeydown="if(event.key==='Enter') checkAdminLogin()" />
+                    <button onclick="checkAdminLogin()" class="add-btn">
+                        <i class="fas fa-unlock"></i> Gali
+                    </button>
+                </div>
+                <p id="adminError" class="admin-message error" style="display:none;">⚠️ Email ama Password waa khalad! Fadlan isku day mar kale.</p>
+            </div>
+
+            <!-- Admin Content -->
+            <div id="adminContent" style="display:none;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:15px;">
+                    <h3><i class="fas fa-plus-circle"></i> Ku Dar Goob Cusub</h3>
+                    <button onclick="lockAdmin()" class="logout-btn" style="background:#ef4444; color:white; border:none; padding:8px 20px; border-radius:8px; font-weight:600; cursor:pointer; transition:0.3s; font-size:0.85rem;">
+                        <i class="fas fa-sign-out-alt"></i> Ka Bax
+                    </button>
+                </div>
+                <div class="admin-form">
+                    <input type="text" id="newName" placeholder="Magaca Goobta (e.g. Jabamila Herbal)" />
+                    <input type="text" id="newAddress" placeholder="Ciwaanka (e.g. Suuqa Wahen, City Center)" />
+                    <select id="newType">
+                        <option value="Supermarket">Supermarket</option>
+                        <option value="Kilinik">Kilinik</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Herbal">Herbal</option>
+                    </select>
+                    <button onclick="addLocation()" class="add-btn"><i class="fas fa-save"></i> Ku Dar</button>
+                </div>
+                <p id="adminMessage" class="admin-message"></p>
+                
+                <!-- Admin Location List -->
+                <div class="admin-location-list">
+                    <h4><i class="fas fa-list"></i> Goobaha Hadda Jira</h4>
+                    <div id="adminLocationList" class="admin-list"></div>
+                </div>
+            </div>
+        </section>
+        <!-- ========================================== -->
         <!-- QAYBTA IIBKA JUMLADA (WHOLESALE)          -->
         <!-- ========================================== -->
         <section class="wholesale-section">
@@ -479,4 +575,6 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+
 
