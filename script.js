@@ -421,3 +421,224 @@ document.addEventListener('DOMContentLoaded', function() {
 console.log("✅ Lubaan Products loaded successfully!");
 console.log("📧 Admin Email: akiidonly@gmail.com");
 console.log("🔑 Admin Password: Akiid12345");
+
+// ============================================================
+// SESSION TIMEOUT (15 daqiiqo)
+// ============================================================
+const SESSION_TIMEOUT = 15 * 60 * 1000; // 15 daqiiqo
+
+let sessionTimer;
+
+function resetSessionTimer() {
+    clearTimeout(sessionTimer);
+    sessionTimer = setTimeout(() => {
+        if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+            alert('⚠️ Waqtigaaga wuu dhammaaday! Fadlan mar kale soo gal.');
+            lockAdmin();
+            const toggleBtn = document.getElementById('adminToggleBtn');
+            if (toggleBtn) {
+                toggleBtn.innerHTML = '<i class="fas fa-cog"></i> Maamul';
+                toggleBtn.style.background = '#ef4444';
+                setTimeout(() => { toggleBtn.style.background = ''; }, 3000);
+            }
+        }
+    }, SESSION_TIMEOUT);
+}
+
+// Reset timer marka la isticmaalo
+document.addEventListener('click', resetSessionTimer);
+document.addEventListener('keydown', resetSessionTimer);
+document.addEventListener('scroll', resetSessionTimer);
+document.addEventListener('mousemove', resetSessionTimer);
+
+// Wac marka admin uu galo
+const originalCheckAdminLogin = checkAdminLogin;
+checkAdminLogin = function() {
+    originalCheckAdminLogin();
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        resetSessionTimer();
+    }
+};
+
+// Wac marka admin uu soo galo
+document.addEventListener('DOMContentLoaded', function() {
+    if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        resetSessionTimer();
+    }
+});
+
+console.log('⏰ Session timeout: 15 minutes');
+
+// ============================================================
+// BRUTE FORCE PROTECTION
+// ============================================================
+let loginAttempts = 0;
+const MAX_ATTEMPTS = 5;
+const LOCKOUT_TIME = 30 * 60 * 1000; // 30 daqiiqo
+
+function checkBruteForce() {
+    const attempts = localStorage.getItem('loginAttempts');
+    const lockoutUntil = localStorage.getItem('lockoutUntil');
+    
+    if (lockoutUntil && Date.now() < parseInt(lockoutUntil)) {
+        const remaining = Math.ceil((parseInt(lockoutUntil) - Date.now()) / 60000);
+        alert(`⚠️ Waxaad ka gudubtay isku dayo. Fadlan sug ${remaining} daqiiqo.`);
+        return true;
+    }
+    
+    if (attempts && parseInt(attempts) >= MAX_ATTEMPTS) {
+        localStorage.setItem('lockoutUntil', (Date.now() + LOCKOUT_TIME).toString());
+        alert(`⚠️ Waxaad ka gudubtay isku dayo. Fadlan sug 30 daqiiqo.`);
+        return true;
+    }
+    return false;
+}
+
+// Override checkAdminLogin si loo daro brute force protection
+const originalCheckLogin = checkAdminLogin;
+checkAdminLogin = function() {
+    if (checkBruteForce()) return;
+    
+    const emailInput = document.getElementById('adminEmail');
+    const passwordInput = document.getElementById('adminPassword');
+    const errorMsg = document.getElementById('adminError');
+    
+    if (!emailInput || !passwordInput) return;
+    
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        localStorage.removeItem('loginAttempts');
+        localStorage.removeItem('lockoutUntil');
+        originalCheckLogin();
+    } else {
+        loginAttempts = (localStorage.getItem('loginAttempts') || 0);
+        loginAttempts = parseInt(loginAttempts) + 1;
+        localStorage.setItem('loginAttempts', loginAttempts.toString());
+        
+        if (errorMsg) {
+            errorMsg.style.display = 'block';
+            errorMsg.textContent = `⚠️ Email ama Password waa khalad! (Isku dayo ${loginAttempts}/${MAX_ATTEMPTS})`;
+        }
+        if (passwordInput) {
+            passwordInput.value = '';
+            passwordInput.focus();
+        }
+        
+        if (loginAttempts >= MAX_ATTEMPTS) {
+            localStorage.setItem('lockoutUntil', (Date.now() + LOCKOUT_TIME).toString());
+            alert('⚠️ Waxaad ka gudubtay isku dayo. Fadlan sug 30 daqiiqo.');
+        }
+    }
+};
+
+console.log('🛡️ Brute Force Protection: Active (Max 5 attempts)');
+
+// ============================================================
+// AUDIT LOG - Kaydinta Falalka
+// ============================================================
+function logAudit(action, details) {
+    const logs = JSON.parse(localStorage.getItem('auditLogs') || '[]');
+    const logEntry = {
+        timestamp: new Date().toISOString(),
+        action: action,
+        details: details,
+        ip: localStorage.getItem('lubaanVisitorIP') || 'Unknown',
+        userAgent: navigator.userAgent
+    };
+    logs.push(logEntry);
+    if (logs.length > 100) logs.shift(); // Kaydi 100-ka ugu dambeeya
+    localStorage.setItem('auditLogs', JSON.stringify(logs));
+}
+
+// Override addLocation si loo kaydiyo
+const originalAdd = addLocation;
+addLocation = function() {
+    const name = document.getElementById('newName').value.trim();
+    originalAdd();
+    if (name) {
+        logAudit('ADD_LOCATION', `Goob cusub: ${name}`);
+    }
+};
+
+// Override deleteLocation si loo kaydiyo
+const originalDelete = deleteLocation;
+deleteLocation = function(index) {
+    const name = locations[index].name;
+    originalDelete(index);
+    logAudit('DELETE_LOCATION', `Goob la tirtiray: ${name}`);
+};
+
+// Kaydi login iyo logout
+const originalCheckLogin2 = checkAdminLogin;
+checkAdminLogin = function() {
+    const email = document.getElementById('adminEmail').value.trim();
+    const password = document.getElementById('adminPassword').value.trim();
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+        logAudit('LOGIN', `Admin soo galay: ${email}`);
+    }
+    originalCheckLogin2();
+};
+
+const originalLockAdmin = lockAdmin;
+lockAdmin = function() {
+    const email = sessionStorage.getItem('adminEmail') || 'Unknown';
+    logAudit('LOGOUT', `Admin ka baxay: ${email}`);
+    originalLockAdmin();
+};
+
+function viewAuditLogs() {
+    const logs = JSON.parse(localStorage.getItem('auditLogs') || '[]');
+    console.log('📋 AUDIT LOGS:');
+    console.table(logs.slice(-10)); // 10-ka ugu dambeeya
+    return logs;
+}
+
+// Ku dar badhan si loo arko logs (haddii admin uu soo galay)
+document.addEventListener('DOMContentLoaded', function() {
+    const adminContent = document.getElementById('adminContent');
+    if (adminContent) {
+        const viewLogsBtn = document.createElement('button');
+        viewLogsBtn.innerHTML = '<i class="fas fa-history"></i> Arag Logs';
+        viewLogsBtn.className = 'logout-btn';
+        viewLogsBtn.style.background = '#2563eb';
+        viewLogsBtn.style.marginTop = '10px';
+        viewLogsBtn.onclick = function() {
+            const logs = viewAuditLogs();
+            alert(`Waxaa jira ${logs.length} log. Eeg console-ka (F12)`);
+        };
+        adminContent.appendChild(viewLogsBtn);
+    }
+});
+
+console.log('📝 Audit Log: Active');
+
+// ============================================================
+// IP RESTRICTIONS (Kaydinta IP-yada la ogolaaday)
+// ============================================================
+const ALLOWED_IPS = [
+    // '192.168.1.1',  // Tusaale: Ku dar IP-yada la ogolaaday
+];
+
+function checkIP() {
+    const ip = localStorage.getItem('lubaanVisitorIP') || 'Unknown';
+    if (ALLOWED_IPS.length > 0 && !ALLOWED_IPS.includes(ip)) {
+        console.log('⚠️ IP-gaaga lama ogola: ' + ip);
+        // Waxaad ku dari kartaa farriin ama block
+        return false;
+    }
+    return true;
+}
+
+// Hubi IP marka admin uu soo galo
+const originalCheckLogin3 = checkAdminLogin;
+checkAdminLogin = function() {
+    if (!checkIP()) {
+        alert('⚠️ IP-gaaga lama ogola!');
+        return;
+    }
+    originalCheckLogin3();
+};
+
+console.log('🌐 IP Restrictions: Active');
